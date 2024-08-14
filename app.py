@@ -17,13 +17,13 @@ df = px.data.iris()
 app.layout = dbc.Container([
     dbc.Row([
         dbc.Col([
+            html.Div(id='canvas-output', style={'position': 'relative', 'height': '400px', 'border': '1px solid #ccc'}),
+        ], width=8),
+        dbc.Col([
             dcc.Input(id='chat-input', type='text', placeholder='Type a message...', className='mb-2'),
             dbc.Button('Send', id='send-button', color='primary', className='mb-2'),
             html.Div(id='chat-output', style={'border': '1px solid #ccc', 'padding': '10px', 'height': '300px', 'overflowY': 'scroll'}),
         ], width=4),
-        dbc.Col([
-            html.Div(id='canvas-output', style={'position': 'relative', 'height': '400px', 'border': '1px solid #ccc'}),
-        ], width=8)
     ])
 ])
 
@@ -43,7 +43,11 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         return chat_history, canvas_content
     
     response = send_to_endpoint(user_input)
-    chat_output = chat_history + [html.Div([html.P(f'User: {user_input}'), html.P(f'Bot: {response["answer"]}')])]
+    if chat_history != None:
+      chat_output = chat_history + [html.Div([html.P(f'User: {user_input}'), html.P(f'Bot: {response["answer"]}')])]
+    else:
+      chat_output = [html.Div([html.P(f'User: {user_input}'), html.P(f'Bot: {response["answer"]}')])]
+
 
     if 'graphql' in response:
         # Generate graph based on GraphQL query (mock example)
