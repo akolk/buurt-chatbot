@@ -76,7 +76,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         
         fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
         new_card = dbc.Card(
-            html.Div(ret),
+            html.Div(str(ret)),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
@@ -86,7 +86,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         sparql_result = f"SPARQL Result: {response['query']}"
         ret = sparql_endpoint(response['query'])
         new_card = dbc.Card(
-            html.Div(ret),
+            html.Div(str(ret)),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
