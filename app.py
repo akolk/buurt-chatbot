@@ -5,6 +5,7 @@ import requests
 import plotly.express as px
 import os
 import uuid
+idx=0
 
 # Generate a random UUID
 generated_uuid = uuid.uuid4()
@@ -13,6 +14,8 @@ generated_uuid = uuid.uuid4()
 url_base_pathname=os.environ.get("BASE_URL", "/")
 SPARQL_ENDPOINT = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
 GRAPHQL_ENDPOINT = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
+# Endpoint where chat input is sent
+QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
 
 app = dash.Dash(__name__,url_base_pathname=url_base_pathname, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -34,15 +37,14 @@ app.layout = dbc.Container([
                 html.Div(id='chat-output', style={'border': '1px solid #ccc', 'padding': '10px', 'height': '300px', 'overflowY': 'scroll', 'margin-bottom': '10px'})
             ], style={'flex': '1'}),  # Chat history on top
             dbc.Row([
-                dcc.Input(id='chat-input', type='text', placeholder='Type a message...', style={'width': '100%', 'margin-bottom': '10px'}),
+                dcc.Input(id='chat-input', type='text', placeholder='Stel een vraag of geef een opdracht ....', style={'width': '100%', 'margin-bottom': '10px'}),
                 dbc.Button('Send', id='send-button', color='primary', style={'width': '100%'})
             ], style={'flex': '0'})  # Question entry at the bottom
         ], width=4, style={'display': 'flex', 'flex-direction': 'column', 'height': '100%'})  # Adjust width to 4 out of 12 columns
     ], style={'height': '100vh'})  # Full viewport height
 ])
 
-# Endpoint where chat input is sent
-QUESTION_ENDPOINT = 'https://labs.kadaster.nl/predict?question='
+
 
 @app.callback(
     Output('store-chat-history', 'data'),
@@ -77,7 +79,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
         new_card = dbc.Card(
             html.Div(str(ret)),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
+            #style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
+            className="shadow-lg p-3 mb-5 bg-white rounded"
         )
         canvas_content.append(new_card)
 
@@ -87,12 +90,14 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         ret = sparql_endpoint(response['query'])
         new_card = dbc.Card(
             html.Div(str(ret)),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
+            #style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
+            className="shadow-lg p-3 mb-5 bg-white rounded"
         )
         canvas_content.append(new_card)
 
     elif response['language'] == 'url':
         # Handle URL response (mock example)
+
         new_card = dbc.Card(
             html.A('Open Link', href=response['query'], target='_blank', className='btn btn-primary'),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
@@ -101,10 +106,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
-        new_card = dbc.Card(
-            html.Div(response['query']),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
-        )
+        new_card = makecard("Antwoord", "Graphql", response['query']  )
+
         canvas_content.append(new_card)
 
     return chat_history, canvas_content, chat_output, canvas_content
@@ -117,6 +120,20 @@ def send_to_endpoint(user_input):
         return response.json()
     except Exception as e:
         return {'answer': 'Sorry, there was an error contacting the server.'}
+
+def makecard(cardtitle,title,body):
+    return dbc.Card(
+       [
+        dbc.CardHeader(cardtitle),
+        dbc.CardBody(
+            [
+                html.H5(title, className="card-title"),
+                html.P(body, className="card-text"),
+            ]
+        ),
+       ],
+       className="shadow-lg p-3 mb-5 bg-white rounded"
+    )
 
 def graphql_endpoint(query):
     try:
@@ -136,6 +153,22 @@ def sparql_endpoint(query):
         return response.json()
     except Exception as e:
         return {'query': 'Sorry, there was an error contacting the sparql server.'}
+
+def find_key(data, target_key):
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key == target_key:
+                return value
+            elif isinstance(value, (dict, list)):
+                result = find_key(value, target_key)
+                if result is not None:
+                    return result
+    elif isinstance(data, list):
+        for item in data:
+            result = find_key(item, target_key)
+            if result is not None:
+                return result
+    return None
         
 if __name__ == '__main__':
     HOST = os.environ.get('HOST', '0.0.0.0')
