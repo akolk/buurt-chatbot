@@ -11,6 +11,8 @@ generated_uuid = uuid.uuid4()
 
 # Initialize the Dash app with a Bootstrap theme
 url_base_pathname=os.environ.get("BASE_URL", "/")
+SPARQL_ENDPOINT = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
+GRAPHQL_ENDPOINT = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
 
 app = dash.Dash(__name__,url_base_pathname=url_base_pathname, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -70,9 +72,11 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     # Update the canvas content based on the response
     if response['language'] == 'graphql':
         # Generate graph based on GraphQL query (mock example)
+        ret = graphql_endpoint(response['query'])
+        
         fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
         new_card = dbc.Card(
-            dcc.Graph(figure=fig),
+            html.Div(ret),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
@@ -80,8 +84,9 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
         sparql_result = f"SPARQL Result: {response['query']}"
+        ret = sparql_endpoint(response['query'])
         new_card = dbc.Card(
-            html.Div(sparql_result),
+            html.Div(ret),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
@@ -93,6 +98,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
+        
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
         new_card = dbc.Card(
@@ -112,6 +118,20 @@ def send_to_endpoint(user_input):
     except Exception as e:
         return {'answer': 'Sorry, there was an error contacting the server.'}
 
+def graphql_endpoint(query):
+    try:
+        response = requests.post(GRAPHQL_ENDPOINT, json={"query": query})
+        return response.json()
+    except Exception as e:
+        return {'query': 'Sorry, there was an error contacting the graphql server.'}
+
+def sparql_endpoint(query):
+    try:
+        response = requests.get(SPARQL_ENDPOINT)
+        return response.json()
+    except Exception as e:
+        return {'query': 'Sorry, there was an error contacting the sparql server.'}
+        
 if __name__ == '__main__':
     HOST = os.environ.get('HOST', '0.0.0.0')
     PORT = int(os.environ.get('PORT', 8050))
