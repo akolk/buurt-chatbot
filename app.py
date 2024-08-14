@@ -126,8 +126,13 @@ def graphql_endpoint(query):
         return {'query': 'Sorry, there was an error contacting the graphql server.'}
 
 def sparql_endpoint(query):
+    headers ={
+                'Content-Type': 'application/sparql-query',
+                'accept': 'application/sparql-results+json'
+            }
+    
     try:
-        response = requests.get(SPARQL_ENDPOINT)
+        response = requests.post(SPARQL_ENDPOINT, data=query, headers=headers)
         return response.json()
     except Exception as e:
         return {'query': 'Sorry, there was an error contacting the sparql server.'}
