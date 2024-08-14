@@ -15,15 +15,17 @@ df = px.data.iris()
 
 # Layout of the app
 app.layout = dbc.Container([
+    dcc.Store(id='store-chat-history', data=[]),
+    dcc.Store(id='store-canvas-content', data=[]),
     dbc.Row([
-        dbc.Col([
-            html.Div(id='canvas-output', style={'position': 'relative', 'height': '400px', 'border': '1px solid #ccc'}),
-        ], width=8),
         dbc.Col([
             dcc.Input(id='chat-input', type='text', placeholder='Type a message...', className='mb-2'),
             dbc.Button('Send', id='send-button', color='primary', className='mb-2'),
             html.Div(id='chat-output', style={'border': '1px solid #ccc', 'padding': '10px', 'height': '300px', 'overflowY': 'scroll'}),
         ], width=4),
+        dbc.Col([
+            html.Div(id='canvas-output', style={'position': 'relative', 'height': '400px', 'border': '1px solid #ccc'}),
+        ], width=8)
     ])
 ])
 
