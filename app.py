@@ -36,7 +36,7 @@ app.layout = dbc.Container([
 ])
 
 # Endpoint where chat input is sent
-QUESTION_ENDPOINT = 'https://example.com/question'
+QUESTION_ENDPOINT = 'https://labs.kadaster.nl/predict?question='
 
 @app.callback(
     Output('store-chat-history', 'data'),
@@ -99,7 +99,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
 def send_to_endpoint(user_input):
     # Send the user input to the external question endpoint
     try:
-        response = requests.post(QUESTION_ENDPOINT, json={'question': user_input})
+        response = requests.get(QUESTION_ENDPOINT+user_input)
         return response.json()
     except Exception as e:
         return {'answer': 'Sorry, there was an error contacting the server.'}
