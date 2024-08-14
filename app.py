@@ -55,6 +55,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     # Send user input to the external question endpoint
     response = send_to_endpoint(user_input)
 
+    response['url'] = "https://www.kadaster.nl/"
+
     # Update chat history with user input and bot response
     new_message = {'user': user_input, 'bot': response.get('answer', 'Sorry, I don\'t understand.')}
     chat_history.append(new_message)
