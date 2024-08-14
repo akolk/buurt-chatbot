@@ -58,39 +58,43 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     response['url'] = "https://www.kadaster.nl/"
 
     # Update chat history with user input and bot response
-    new_message = {'user': user_input, 'bot': response.get('answer', 'Sorry, I don\'t understand.')}
+    new_message = {'user': user_input, 'bot': response.get('query', 'Er ging iets fout en ik heb geen antwoord gekregen. Probeer opnieuw.')}
     chat_history.append(new_message)
 
     # Update chat output in the UI
     chat_output = [html.Div([html.P(f'User: {msg["user"]}'), html.P(f'Bot: {msg["bot"]}')]) for msg in chat_history]
 
     # Update the canvas content based on the response
-    if 'graphql' in response:
+    if response['language'] == 'graphql':
         # Generate graph based on GraphQL query (mock example)
         fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
         new_card = dbc.Card(
             dcc.Graph(figure=fig),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'},
-            draggable=True
+            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
 
-    elif 'sparql' in response:
+    elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
         sparql_result = f"SPARQL Result: {response['sparql']}"
         new_card = dbc.Card(
             html.Div(sparql_result),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'},
-            draggable=True
+            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
 
-    elif 'url' in response:
+    elif response['language'] == 'url':
         # Handle URL response (mock example)
         new_card = dbc.Card(
             html.A('Open Link', href=response['url'], target='_blank', className='btn btn-primary'),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'},
-            draggable=True
+            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
+        )
+        canvas_content.append(new_card)
+    elif response['language'] == 'prompt':
+        # Handle URL response (mock example)
+        new_card = dbc.Card(
+            html.A('Open Link', href=response['url'], target='_blank', className='btn btn-primary'),
+            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
 
