@@ -10,7 +10,7 @@ import uuid
 generated_uuid = uuid.uuid4()
 
 # Initialize the Dash app with a Bootstrap theme
-url_base_pathname=os.environ.get("BASE_URL", "")
+url_base_pathname=os.environ.get("BASE_URL", "/")
 
 app = dash.Dash(__name__,url_base_pathname=url_base_pathname, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -104,7 +104,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     return chat_history, canvas_content, chat_output, canvas_content
 
 def send_to_endpoint(user_input):
-    conversation_id=f"&conversion_id={generated_uuid}"
+    conversation_id=f"&conversation_id={generated_uuid}"
     # Send the user input to the external question endpoint
     try:
         response = requests.get(QUESTION_ENDPOINT+user_input+conversation_id)
