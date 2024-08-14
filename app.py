@@ -18,15 +18,21 @@ app.layout = dbc.Container([
     dcc.Store(id='store-chat-history', data=[]),
     dcc.Store(id='store-canvas-content', data=[]),
     dbc.Row([
+        # Canvas area (left side, full width)
         dbc.Col([
-            dcc.Input(id='chat-input', type='text', placeholder='Type a message...', className='mb-2'),
-            dbc.Button('Send', id='send-button', color='primary', className='mb-2'),
-            html.Div(id='chat-output', style={'border': '1px solid #ccc', 'padding': '10px', 'height': '300px', 'overflowY': 'scroll'}),
-        ], width=4),
+            html.Div(id='canvas-output', style={'position': 'relative', 'height': '100%', 'border': '1px solid #ccc'})
+        ], width=8),  # Adjust width to 8 out of 12 columns
+        # Chatbot area (right side)
         dbc.Col([
-            html.Div(id='canvas-output', style={'position': 'relative', 'height': '400px', 'border': '1px solid #ccc'}),
-        ], width=8)
-    ])
+            dbc.Row([
+                html.Div(id='chat-output', style={'border': '1px solid #ccc', 'padding': '10px', 'height': '300px', 'overflowY': 'scroll', 'margin-bottom': '10px'})
+            ], style={'flex': '1'}),  # Chat history on top
+            dbc.Row([
+                dcc.Input(id='chat-input', type='text', placeholder='Type a message...', style={'width': '100%', 'margin-bottom': '10px'}),
+                dbc.Button('Send', id='send-button', color='primary', style={'width': '100%'})
+            ], style={'flex': '0'})  # Question entry at the bottom
+        ], width=4, style={'display': 'flex', 'flex-direction': 'column', 'height': '100%'})  # Adjust width to 4 out of 12 columns
+    ], style={'height': '100vh'})  # Full viewport height
 ])
 
 # Endpoint where chat input is sent
