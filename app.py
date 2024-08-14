@@ -3,6 +3,7 @@ from dash import dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
 import requests
 import plotly.express as px
+import os
 
 # Initialize the Dash app with a Bootstrap theme
 url_base_pathname=os.environ.get("BASE_URL", "")
