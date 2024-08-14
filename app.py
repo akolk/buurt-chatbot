@@ -75,13 +75,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     if response['language'] == 'graphql':
         # Generate graph based on GraphQL query (mock example)
         ret = graphql_endpoint(response['query'])
-        
-        fig = px.scatter(df, x='sepal_width', y='sepal_length', color='species')
-        new_card = dbc.Card(
-            html.Div(str(ret)),
-            #style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-        )
+        new_card = makecard("Antwoord", "Graphql", str(ret)  )
+
         canvas_content.append(new_card)
 
     elif response['language'] == 'sparql':
