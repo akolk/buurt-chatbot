@@ -79,7 +79,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
 
     elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
-        sparql_result = f"SPARQL Result: {response['sparql']}"
+        sparql_result = f"SPARQL Result: {response['query']}"
         new_card = dbc.Card(
             html.Div(sparql_result),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
@@ -89,14 +89,14 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     elif response['language'] == 'url':
         # Handle URL response (mock example)
         new_card = dbc.Card(
-            html.A('Open Link', href=response['url'], target='_blank', className='btn btn-primary'),
+            html.A('Open Link', href=response['query'], target='_blank', className='btn btn-primary'),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
         new_card = dbc.Card(
-            html.Div(response['prompt']),
+            html.Div(response['query']),
             style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
         )
         canvas_content.append(new_card)
