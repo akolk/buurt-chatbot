@@ -4,6 +4,10 @@ import dash_bootstrap_components as dbc
 import requests
 import plotly.express as px
 import os
+import uuid
+
+# Generate a random UUID
+generated_uuid = uuid.uuid4()
 
 # Initialize the Dash app with a Bootstrap theme
 url_base_pathname=os.environ.get("BASE_URL", "")
@@ -49,6 +53,7 @@ QUESTION_ENDPOINT = 'https://labs.kadaster.nl/predict?question='
     State('store-canvas-content', 'data')
 )
 def update_chat(n_clicks, user_input, chat_history, canvas_content):
+
     if n_clicks is None or not user_input:
         return chat_history, canvas_content, [], []
 
@@ -56,6 +61,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     response = send_to_endpoint(user_input)
 
     response['url'] = "https://www.kadaster.nl/"
+    if response['query'] == "Wat is het adres waar u in geïnteresseerd bent?":
+        
 
     # Update chat history with user input and bot response
     new_message = {'user': user_input, 'bot': response.get('query', 'Er ging iets fout en ik heb geen antwoord gekregen. Probeer opnieuw.')}
@@ -101,9 +108,10 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     return chat_history, canvas_content, chat_output, canvas_content
 
 def send_to_endpoint(user_input):
+    conversation_id=f"&conversion_id={generated_uuid}"
     # Send the user input to the external question endpoint
     try:
-        response = requests.get(QUESTION_ENDPOINT+user_input)
+        response = requests.get(QUESTION_ENDPOINT+user_input+conversation_id)
         return response.json()
     except Exception as e:
         return {'answer': 'Sorry, there was an error contacting the server.'}
