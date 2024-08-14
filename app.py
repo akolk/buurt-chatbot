@@ -5,7 +5,9 @@ import requests
 import plotly.express as px
 
 # Initialize the Dash app with a Bootstrap theme
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+url_base_pathname=os.environ.get("BASE_URL", "")
+
+app = dash.Dash(__name__,url_base_pathname=url_base_pathname, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Sample data for graphs
 df = px.data.iris()
@@ -82,4 +84,7 @@ def send_to_endpoint(user_input):
         return {'answer': 'Sorry, there was an error contacting the server.'}
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    HOST = os.environ.get('HOST', '0.0.0.0')
+    PORT = int(os.environ.get('PORT', 8050))
+
+    app.run_server(debug=True, host=HOST, port=PORT)
