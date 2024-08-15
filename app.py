@@ -81,7 +81,6 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         sparql_result = f"SPARQL Result: {response['query']}"
         ret = sparql_endpoint(response['query'])
         spardf = sparql_results_to_dataframe(ret)
-        df_csv = df.to_csv(index=False)
         new_card = makecard_ag("SPARQL", "antwoord", spardf)
         canvas_content.append(new_card)
 
