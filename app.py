@@ -19,9 +19,6 @@ QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.n
 
 app = dash.Dash(__name__,url_base_pathname=url_base_pathname, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-# Sample data for graphs
-df = px.data.iris()
-
 # Layout of the app
 app.layout = dbc.Container([
     dcc.Store(id='store-chat-history', data=[]),
@@ -74,33 +71,23 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         # Generate graph based on GraphQL query (mock example)
         ret = graphql_endpoint(response['query'])
         new_card = makecard("Antwoord", "Graphql", str(ret)  )
-
         canvas_content.append(new_card)
 
     elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
         sparql_result = f"SPARQL Result: {response['query']}"
         ret = sparql_endpoint(response['query'])
-        new_card = dbc.Card(
-            html.Div(str(ret)),
-            #style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-        )
+        new_card = makecard("SPARQL", "antwoord", str(ret))
         canvas_content.append(new_card)
 
     elif response['language'] == 'url':
         # Handle URL response (mock example)
-
-        new_card = dbc.Card(
-            html.A('Open Link', href=response['query'], target='_blank', className='btn btn-primary'),
-            style={'position': 'absolute', 'top': f'{10 + len(canvas_content) * 80}px', 'left': f'{10}px', 'width': '300px'}
-        )
+        new_card = makecard("URL", "link", response['query'])
         canvas_content.append(new_card)
         
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
         new_card = makecard("Antwoord", "Graphql", response['query']  )
-
         canvas_content.append(new_card)
 
     return chat_history, canvas_content, chat_output, canvas_content
