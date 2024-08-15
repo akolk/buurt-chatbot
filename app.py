@@ -1,6 +1,7 @@
 import dash
 from dash import dcc, html, Input, Output, State
 import dash_bootstrap_components as dbc
+import dash_ag_grid as dag
 import requests
 import plotly.express as px
 import os
@@ -116,6 +117,25 @@ def makecard(cardtitle,title,body):
        ],
        className="shadow-lg p-3 mb-5 bg-white rounded"
     )
+    
+def makecard_ag(cardtitle, title, df):
+    
+    return dbc.Card(
+       [
+        dbc.CardHeader(cardtitle),
+        dbc.CardBody(
+            [
+                html.H5(title, className="card-title"),
+                dag.AgGrid(
+                    rowData=df.to_dict("records"),
+                    columnDefs=[{"field": i} for i in df.columns],
+                )
+            ]
+        ),
+       ],
+       className="shadow-lg p-3 mb-5 bg-white rounded"
+    )
+
 
 def graphql_endpoint(query):
     try:
