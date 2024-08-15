@@ -57,6 +57,8 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     return chat_history, None
 
 def send_to_endpoint(user_input):
+    generated_uuid = "deadbeef"
+    QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
     conversation_id=f"&conversation_id={generated_uuid}"
     # Send the user input to the external question endpoint
     try:
