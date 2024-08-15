@@ -61,9 +61,12 @@ def send_to_endpoint(user_input):
     QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
     conversation_id=f"&conversation_id={generated_uuid}"
     # Send the user input to the external question endpoint
+    url = f"{QUESTION_ENDPOINT}{user_input}{conversation_id}"
+    print(url)
     try:
         response = requests.get(QUESTION_ENDPOINT+user_input+conversation_id)
         return response.json()
     except Exception as e:
+        print(e)
         return {'answer': 'Sorry, there was an error contacting the server.'}
 
