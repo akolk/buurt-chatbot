@@ -8,3 +8,4 @@ uuid
 openai
 langchain
 langchain_community
+langchain-openai
