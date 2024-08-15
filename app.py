@@ -7,7 +7,42 @@ import plotly.express as px
 import os
 import uuid
 import pandas as pd
-idx=0
+import re
+
+def convert_to_superscript(text, sources):
+    # Superscript digits in HTML
+    superscript_map = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+
+    # Regex pattern to find lists of numbers within square brackets
+    pattern = re.compile(r'\[(\d+(?:,\s*\d+)*)\]')
+
+    def replace_with_superscript(match):
+        # Extract the matched number list
+        numbers = match.group(1).translate(superscript_map)
+        
+        # Get the corresponding source URL for the current match
+        if replace_with_superscript.counter - 1 < len(sources):
+            url = sources[replace_with_superscript.counter - 1]
+            replace_with_superscript.counter += 1
+        else:
+            url = '#'
+
+        # Return the clickable superscript
+        return f"<a href='{url}'><sup>{numbers}</sup></a>"
+
+    # Initialize a counter to track the number of matches
+    replace_with_superscript.counter = 1
+
+    # Substitute all occurrences in the text
+    return pattern.sub(replace_with_superscript, text)
+
+# Example usage
+text = "This is a list of numbers: [0,1,2,3] and here is another: [4,5,6,7]."
+sources = ["https://example.com/source1", "https://example.com/source2"]
+
+converted_text = convert_to_superscript(text, sources)
+print(converted_text)
+
 
 # Generate a random UUID
 generated_uuid = uuid.uuid4()
@@ -91,7 +126,8 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
-        new_card = makecard("Antwoord", "Graphql", response['query']  )
+        converted_text = convert_to_superscript(response['query'], response['sources'] )
+        new_card = makecard("Antwoord", "Graphql", converted_text  )
         canvas_content.append(new_card)
 
     return chat_history, canvas_content, chat_output, canvas_content
