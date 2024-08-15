@@ -6,6 +6,7 @@ import requests
 import plotly.express as px
 import os
 import uuid
+import pandas as pd
 idx=0
 
 # Generate a random UUID
