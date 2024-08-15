@@ -72,16 +72,17 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
     if response['language'] == 'graphql':
         # Generate graph based on GraphQL query (mock example)
         ret = graphql_endpoint(response['query'])
-        new_card = makecard("Antwoord", "Graphql", str(ret)  )
+        gradf = graphql_to_dataframe(ret)
+        new_card = makecard_ag("Antwoord", "Graphql", gradf)
         canvas_content.append(new_card)
 
     elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
         sparql_result = f"SPARQL Result: {response['query']}"
         ret = sparql_endpoint(response['query'])
-        df = sparql_results_to_dataframe(ret)
+        spardf = sparql_results_to_dataframe(ret)
         df_csv = df.to_csv(index=False)
-        new_card = makecard_ag("SPARQL", "antwoord", df)
+        new_card = makecard_ag("SPARQL", "antwoord", spardf)
         canvas_content.append(new_card)
 
     elif response['language'] == 'url':
