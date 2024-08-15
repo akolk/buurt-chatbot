@@ -52,7 +52,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #result_ai = conversation.predict(input=user_input)
     #model_output = result_ai.strip()
     ret = send_to_endpoint(user_input)
-    model_output = ret['query']
+    model_output = str(ret)
     chat_history += f"{model_output}<split>"
     return chat_history, None
 
