@@ -36,4 +36,7 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    HOST = os.environ.get('HOST', '0.0.0.0')
+    PORT = int(os.environ.get('PORT', 8050))
+
+    app.run_server(debug=True, host=HOST, port=PORT)
