@@ -1,6 +1,6 @@
-from langchain import OpenAI, ConversationChain
+from langchain_community.llms.OpenAI import OpenAI, 
+from langchain.chains.ConversationChain import ConversationChain
 from langchain.memory import ConversationBufferMemory
-from langchain.llms import OpenAI
 
 chat = OpenAI(temperature=0)
 
