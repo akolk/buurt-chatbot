@@ -80,7 +80,7 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         ret = sparql_endpoint(response['query'])
         df = sparql_results_to_dataframe(ret)
         df_csv = df.to_csv(index=False)
-        new_card = makecard("SPARQL", "antwoord", df_csv)
+        new_card = makecard_ag("SPARQL", "antwoord", df)
         canvas_content.append(new_card)
 
     elif response['language'] == 'url':
