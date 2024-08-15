@@ -77,7 +77,9 @@ def update_chat(n_clicks, user_input, chat_history, canvas_content):
         # Handle SPARQL query response (mock example)
         sparql_result = f"SPARQL Result: {response['query']}"
         ret = sparql_endpoint(response['query'])
-        new_card = makecard("SPARQL", "antwoord", str(ret))
+        df = sparql_results_to_dataframe(ret)
+        df_csv = df.to_csv(index=False)
+        new_card = makecard("SPARQL", "antwoord", df_csv)
         canvas_content.append(new_card)
 
     elif response['language'] == 'url':
@@ -133,6 +135,30 @@ def sparql_endpoint(query):
         return response.json()
     except Exception as e:
         return {'query': 'Sorry, there was an error contacting the sparql server.'}
+
+def sparql_results_to_dataframe(json_data):
+    if json_data is None:
+        return pd.DataFrame()
+
+    # Extract the variables from the head of the JSON response
+    variables = json_data['head']['vars']
+
+    # Extract the results from the JSON response
+    results = json_data['results']['bindings']
+
+    # Prepare a list to hold the rows of the DataFrame
+    data = []
+
+    # Iterate through the results and extract each variable's value
+    for result in results:
+        row = {}
+        for var in variables:
+            row[var] = result[var]['value'] if var in result else None
+        data.append(row)
+
+    # Convert the list of rows into a DataFrame
+    df = pd.DataFrame(data, columns=variables)
+    return df
 
 def find_key(data, target_key):
     if isinstance(data, dict):
