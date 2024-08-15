@@ -44,8 +44,6 @@ app.layout = dbc.Container([
     ], style={'height': '100vh'})  # Full viewport height
 ])
 
-
-
 @app.callback(
     Output('store-chat-history', 'data'),
     Output('store-canvas-content', 'data'),
