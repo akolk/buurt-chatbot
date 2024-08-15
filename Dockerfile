@@ -20,4 +20,5 @@ ENV DASH_HOST 0.0.0.0
 LABEL org.opencontainers.image.description "Dit is een demonstrator die tegen Kadaster endpoints praat en cartgpt een beetje na aapt"
 
 # Run app.py when the container launches
-CMD ["python", "app_buurt.py"]
+#CMD ["python", "app_buurt.py"]
+CMD ["python", "index.py"]
