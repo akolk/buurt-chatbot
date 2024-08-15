@@ -130,6 +130,7 @@ def makecard_ag(cardtitle, title, df):
                 dag.AgGrid(
                     rowData=df.to_dict("records"),
                     columnDefs=[{"field": i} for i in df.columns],
+                    style={"height": "100%", "width": "100%"}
                 )
             ]
         ),
