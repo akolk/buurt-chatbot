@@ -68,5 +68,5 @@ def send_to_endpoint(user_input):
         return response.json()
     except Exception as e:
         print(e)
-        return {'answer': 'Sorry, there was an error contacting the server.'}
+        return {'answer': str(e)}
 
