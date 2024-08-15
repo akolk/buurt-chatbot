@@ -4,6 +4,8 @@ from app import app
 from components.textbox import render_textbox
 import os
 import uuid
+import requests
+
 #from pages.chatbot.chatbot_model import conversation
 
 generated_uuid = uuid.uuid4()
