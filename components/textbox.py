@@ -52,8 +52,8 @@ def render_textbox(obj, box:str = "AI"):
             )
         elif obj['language'] == 'graphql':
             res = graphql_endpoint(obj['query'])
-            textbox = makecard('debug', 'debug', str(res), style)
-            #pd = graphql_to_dataframe(res)
+            pd = graphql_to_dataframe(res)
+            textbox = makecard('debug', 'debug', pd.to_string(), style)
             #textbox = makecard_ag('titel 1', 'titel 2', pd, style)
         elif obj['language'] == 'sparql': 
             res = sparql_endpoint(obj['query'])
