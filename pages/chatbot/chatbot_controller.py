@@ -4,8 +4,8 @@ from app import app
 from components.textbox import render_textbox
 from components.card_ag import makecard_ag
 from components.card_text import makecard
-from services.graphql import graphql_endpoint
-from services.sparql import sparql_endpoint, sparql_results_to_dataframe
+from services.graphql import graphql_endpoint, graphql_to_dataframe
+from services.sparql import sparql_endpoint, sparql_to_dataframe
 from services.endpoint import send_to_endpoint
 from services.text import convert_to_superscript
 import services.config
