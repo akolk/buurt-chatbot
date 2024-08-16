@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 import dash_ag_grid as dag
 from dash import dcc, html 
 
-def makecard_ag(cardtitle, title, df):
+def makecard_ag(cardtitle, title, df, style):
     
     return dbc.Card(
        [
@@ -18,5 +18,6 @@ def makecard_ag(cardtitle, title, df):
             ]
         ),
        ],
-       className="shadow-lg p-3 mb-5 bg-white rounded"
+       className="shadow-lg p-3 mb-5 bg-white rounded",
+       style=style
     )

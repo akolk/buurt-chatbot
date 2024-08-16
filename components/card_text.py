@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html 
 
-def makecard(cardtitle,title,body):
+def makecard(cardtitle,title,body, style):
     return dbc.Card(
        [
         dbc.CardHeader(cardtitle),
@@ -12,5 +12,6 @@ def makecard(cardtitle,title,body):
             ]
         ),
        ],
-       className="shadow-lg p-3 mb-5 bg-white rounded"
+       className="shadow-lg p-3 mb-5 bg-white rounded",
+       style=style
     )
