@@ -52,10 +52,11 @@ def render_textbox(obj, box:str = "AI"):
             textbox = makecard('debug', 'debug', str(res))
             #pd = graphql_to_dataframe(res)
             #textbox = makecard_ag('titel 1', 'titel 2', pd)
-        elif obj['language'] == 'sparql':
+        elif obj['language'] == 'sparql': 
             res = sparql_endpoint(obj['query'])
-            pd = sparql_to_dataframe(res)
-            textbox = makecard_ag('titel 1', 'titel 2', pd)
+            textbox = makecard('debug', 'debug', str(res))
+            #pd = sparql_to_dataframe(res)
+            #textbox = makecard_ag('titel 1', 'titel 2', pd)
         elif obj['language'] == 'url':
             res = sparql_endpoint(obj['query'])
             textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)

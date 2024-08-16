@@ -3,6 +3,7 @@ import uuid
 import requests
 import re
 import pandas as pd
+import services.config
 
 def graphql_endpoint(query):
     try:
