@@ -5,6 +5,7 @@ from dash import html
 # import components
 from components.navbar import render_navbar
 from components.input import render_chat_input
+import services.config
 
 
 # define layout
@@ -22,7 +23,7 @@ chatbot_layout = html.Div(
 def render_chatbot():
     return html.Div(
         [
-            render_navbar(brand_name="AI Chatbot"),
+            render_navbar(brand_name=services.config.APP_TITLE),
             html.Br(),
             dcc.Store(id="store-conversation", data="[]"),
             dbc.Container(
