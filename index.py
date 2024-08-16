@@ -7,7 +7,7 @@ from pages.chatbot.chatbot_controller import *
 from pages.page_not_found import page_not_found
 
 from app import app
-import config
+import sesrvices.config
 import os
 import uuid
 
