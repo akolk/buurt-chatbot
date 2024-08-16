@@ -30,7 +30,7 @@ def update_display(chat_history):
         
     return [
         render_textbox(item, box="human") if 'question' in item else render_textbox(item, box="AI")
-        for item in json_data[:-1]
+        for item in json_data
     ]
 
 @app.callback(
