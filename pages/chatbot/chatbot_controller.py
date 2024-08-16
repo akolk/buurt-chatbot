@@ -6,6 +6,8 @@ from components.card_ag import makecard_ag
 from components.card_text import makecard
 from services.graphql import graphql_endpoint
 from services.sparql import sparql_endpoint, sparql_results_to_dataframe
+from services.endpoint import send_to_endpoint
+from services.text import convert_to_superscript
 import services.config
 
 import os
@@ -13,9 +15,6 @@ import uuid
 import requests
 import re
 import pandas
-
-#from pages.chatbot.chatbot_model import conversation
-
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
@@ -51,8 +50,6 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
         return chat_history, None
     
     chat_history += f"Human: {user_input}<split>ChatBot: "
-    #result_ai = conversation.predict(input=user_input)
-    #model_output = result_ai.strip()
     response = send_to_endpoint(user_input)
     # Update the canvas content based on the response
     if response['language'] == 'graphql':
