@@ -40,7 +40,7 @@ def render_textbox(obj, box:str = "AI"):
             src=app.get_asset_url("chatbot.png"),
             style={
                 "border-radius": 50,
-                "height": 36,
+                "height": 72,
                 "margin-right": 5,
                 "float": "left",
             },
