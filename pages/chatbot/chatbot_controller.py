@@ -2,6 +2,8 @@ from dash.dependencies import Input, Output, State
 from app import app
 
 from components.textbox import render_textbox
+from components.card_ag import makecard_ag
+from components.card_text import makecard
 import os
 import uuid
 import requests
@@ -100,39 +102,6 @@ def send_to_endpoint(user_input):
     except Exception as e:
         print(e)
         return {'answer': str(e)}
-
-def makecard(cardtitle,title,body):
-    return dbc.Card(
-       [
-        dbc.CardHeader(cardtitle),
-        dbc.CardBody(
-            [
-                html.H5(title, className="card-title"),
-                html.P(body, className="card-text"),
-            ]
-        ),
-       ],
-       className="shadow-lg p-3 mb-5 bg-white rounded"
-    )
-    
-def makecard_ag(cardtitle, title, df):
-    
-    return dbc.Card(
-       [
-        dbc.CardHeader(cardtitle),
-        dbc.CardBody(
-            [
-                html.H5(title, className="card-title"),
-                dag.AgGrid(
-                    rowData=df.to_dict("records"),
-                    columnDefs=[{"field": i} for i in df.columns],
-                    style={"height": "100%", "width": "100%"}
-                )
-            ]
-        ),
-       ],
-       className="shadow-lg p-3 mb-5 bg-white rounded"
-    )
 
 def graphql_endpoint(query):
     try:
