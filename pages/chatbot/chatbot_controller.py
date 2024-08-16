@@ -21,9 +21,15 @@ import pandas
     Input(component_id="store-conversation", component_property="data")
 )
 def update_display(chat_history):
+    # the chat_history is a string representation of list of json objects. So we need to convert it back to json
+    if isinstance(chat_history, str):
+        json_data = json.loads(chat_history)
+    else:
+        json_data = None
+        
     return [
-        render_textbox(x, box="human") if i % 2 == 0 else render_textbox(x, box="AI")
-        for i, x in enumerate(chat_history.split("<split>")[:-1])
+        render_textbox(item, box="human") if 'question' in item else render_textbox(item, box="AI")
+        for item in json_data)
     ]
 
 @app.callback(
@@ -48,32 +54,13 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 
     if user_input is None or user_input == "":
         return chat_history, None
-    
-    chat_history += f"Human: {user_input}<split>ChatBot: "
+
+    if isinstance(chat_history, str):
+        json_data = json.loads(chat_history)
+
+    json_data.append({ 'question': user_input })
     response = send_to_endpoint(user_input)
-    # Update the canvas content based on the response
-    if response['language'] == 'graphql':
-        # Generate graph based on GraphQL query (mock example)
-        ret = graphql_endpoint(response['query'])
-        gradf = graphql_to_dataframe(ret)
-        new_card = makecard_ag("Antwoord", "Graphql", gradf)
-
-    elif response['language'] == 'sparql':
-        # Handle SPARQL query response (mock example)
-        sparql_result = f"SPARQL Result: {response['query']}"
-        ret = sparql_endpoint(response['query'])
-        spardf = sparql_results_to_dataframe(ret)
-        new_card = makecard_ag("SPARQL", "antwoord", spardf)
-
-    elif response['language'] == 'url':
-        # Handle URL response (mock example)
-        new_card = makecard("URL", "link", response['query'])
-        
-    elif response['language'] == 'prompt':
-        # Handle URL response (mock example)
-        converted_text = convert_to_superscript(response['query'], response['sources'] )
-        new_card = makecard("Antwoord", "Graphql", converted_text )
-
-    model_output = str(ret)
-    chat_history += f"{model_output}<split>"
+    json_data.append({ 'question': user_input })
+    
+    chat_history = json.dumps(json_data)
     return chat_history, None
