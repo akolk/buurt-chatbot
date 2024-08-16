@@ -1,7 +1,8 @@
 from dash import html
 import dash_bootstrap_components as dbc
 from app import app
-from components import makecard, makecard_ag
+from components.card_ag import makecard_ag
+from components.card_text import makecard
 from services.graphql import graphql_endpoint, graphql_to_dataframe
 from services.sparql import sparql_endpoint, sparql_to_dataframe
 
