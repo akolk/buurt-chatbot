@@ -7,6 +7,9 @@ from pages.chatbot.chatbot_controller import *
 from pages.page_not_found import page_not_found
 
 from app import app
+import config
+import os
+import uuid
 
 
 def serve_content():
@@ -36,6 +39,10 @@ def display_page(pathname):
 
 
 if __name__ == '__main__':
+    config.conversation_id = uuid.uuid4()
+    config.sparql_endpoint = os.
+    config.graphql_endpoint = os.
+    
     HOST = os.environ.get('HOST', '0.0.0.0')
     PORT = int(os.environ.get('PORT', 8050))
 
