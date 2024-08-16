@@ -3,7 +3,6 @@ import dash_ag_grid as dag
 from dash import dcc, html 
 
 def makecard_ag(cardtitle, title, df, style):
-    
     return dbc.Card(
         dag.AgGrid(
                     rowData=df.to_dict("records"),
