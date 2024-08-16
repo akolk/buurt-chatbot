@@ -1,5 +1,8 @@
-import requests
 import os
+import uuid
+import requests
+import re
+import pandas
 
 def sparql_endpoint(query):
     headers ={
