@@ -24,7 +24,7 @@ def render_chatbot():
         [
             render_navbar(brand_name="AI Chatbot"),
             html.Br(),
-            dcc.Store(id="store-conversation", data=""),
+            dcc.Store(id="store-conversation", data="[]"),
             dbc.Container(
                 fluid=True,
                 children=[
