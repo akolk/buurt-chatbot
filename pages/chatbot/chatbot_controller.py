@@ -5,6 +5,8 @@ from components.textbox import render_textbox
 from components.card_ag import makecard_ag
 from components.card_text import makecard
 from services.graphql import graphql_endpoint
+from services.sparql import sparql_endpoint
+
 import os
 import uuid
 import requests
