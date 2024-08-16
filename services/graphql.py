@@ -50,7 +50,6 @@ def graphql_to_dataframe(json_data):
     This function flattens the JSON and converts it to a DataFrame.
     """
     if 'data' not in json_data:
-        print("No 'data' key in the JSON response.")
         return pd.DataFrame()
 
     data = json_data['data']
