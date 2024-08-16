@@ -11,7 +11,6 @@ import services.config
 import os
 import uuid
 
-
 def serve_content():
     """
     :return: html div component
@@ -21,9 +20,7 @@ def serve_content():
         html.Div(id='page-content')
     ])
 
-
 app.layout = serve_content()
-
 
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
@@ -36,7 +33,6 @@ def display_page(pathname):
     if pathname in '/' or pathname in '/chatbot':
         return render_chatbot()
     return page_not_found()
-
 
 if __name__ == '__main__':
     services.config.conversation_id = uuid.uuid4()
