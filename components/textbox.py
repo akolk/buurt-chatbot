@@ -46,12 +46,15 @@ def render_textbox(obj, box:str = "AI"):
             },
         )
         if obj['language'] == 'prompt':
-            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)
+            textbox = dbc.Card(obj['query'], 
+                style=style, body=True, color="light", inverse=False,
+                className="shadow-lg p-3 mb-5 bg-white rounded"
+            )
         elif obj['language'] == 'graphql':
             res = graphql_endpoint(obj['query'])
-            #textbox = makecard('debug', 'debug', str(res))
-            pd = graphql_to_dataframe(res)
-            textbox = makecard_ag('titel 1', 'titel 2', pd, style)
+            textbox = makecard('debug', 'debug', str(res))
+            #pd = graphql_to_dataframe(res)
+            #textbox = makecard_ag('titel 1', 'titel 2', pd, style)
         elif obj['language'] == 'sparql': 
             res = sparql_endpoint(obj['query'])
             #textbox = makecard('debug', 'debug', str(res))
@@ -59,7 +62,9 @@ def render_textbox(obj, box:str = "AI"):
             textbox = makecard_ag('titel 1', 'titel 2', pd, style)
         elif obj['language'] == 'url':
             res = sparql_endpoint(obj['query'])
-            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)
+            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False,
+            className="shadow-lg p-3 mb-5 bg-white rounded"
+            )
         else:
             textbox = html.P("nog niet geimplementeerd")
             
