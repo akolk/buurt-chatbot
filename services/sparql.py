@@ -2,7 +2,7 @@ import os
 import uuid
 import requests
 import re
-import pandas
+import pandas as pd
 import services.config
 
 def sparql_endpoint(query):

@@ -2,7 +2,7 @@ import os
 import uuid
 import requests
 import re
-import pandas
+import pandas as pd
 
 def graphql_endpoint(query):
     try:
