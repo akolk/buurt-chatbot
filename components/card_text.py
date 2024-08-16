@@ -1,4 +1,4 @@
-import    as dbc
+import dash_bootstrap_components as dbc
 
 def makecard(cardtitle,title,body):
     return dbc.Card(
