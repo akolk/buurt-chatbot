@@ -5,7 +5,7 @@ pandas
 plotly
 requests
 uuid
-openai
-langchain
-langchain_community
-langchain-openai
+#openai
+#langchain
+#langchain_community
+#langchain-openai
