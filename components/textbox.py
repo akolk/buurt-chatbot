@@ -3,8 +3,7 @@ import dash_bootstrap_components as dbc
 from app import app
 
 
-def render_textbox(text:str, box:str = "AI"):
-    text = text.replace(f"ChatBot:", "").replace("Human:", "")
+def render_textbox(obj, box:str = "AI"):
     style = {
         "max-width": "60%",
         "width": "max-content",
@@ -27,7 +26,7 @@ def render_textbox(text:str, box:str = "AI"):
                 "float": "right",
             },
         )
-        textbox_human = dbc.Card(text, style=style, body=True, color="primary", inverse=True)
+        textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True)
         return html.Div([thumbnail_human, textbox_human])
 
     elif box == "AI":
@@ -43,8 +42,11 @@ def render_textbox(text:str, box:str = "AI"):
                 "float": "left",
             },
         )
-        textbox = dbc.Card(text, style=style, body=True, color="light", inverse=False)
-
+        if obj['language'] == 'prompt':
+            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)
+        else:
+            textbox = html.P("nog niet geimplementeerd")
+            
         return html.Div([thumbnail, textbox])
 
     else:
