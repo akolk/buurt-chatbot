@@ -15,6 +15,7 @@ import uuid
 import requests
 import re
 import pandas
+import json
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
