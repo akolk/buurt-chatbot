@@ -1,7 +1,9 @@
 from dash import html
 import dash_bootstrap_components as dbc
 from app import app
-
+from components import makecard, makecard_ag
+from services.graphql import graphql_endpoint, graphql_to_dataframe
+from services.sparql import sparql_endpoint, sparql_to_dataframe
 
 def render_textbox(obj, box:str = "AI"):
     style = {
@@ -43,6 +45,17 @@ def render_textbox(obj, box:str = "AI"):
             },
         )
         if obj['language'] == 'prompt':
+            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)
+        elif obj['language'] == 'graphql':
+            res = graphql_endpoint(obj['query'])
+            pd = graphql_to_dataframe(res)
+            textbox = makecard_ag('titel 1', 'titel 2', pd)
+        elif obj['language'] == 'sparql':
+            res = sparql_endpoint(obj['query'])
+            pd = sparql_to_dataframe(res)
+            textbox = makecard_ag('titel 1', 'titel 2', pd)
+       elif obj['language'] == 'url':
+            res = sparql_endpoint(obj['query'])
             textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False)
         else:
             textbox = html.P("nog niet geimplementeerd")
