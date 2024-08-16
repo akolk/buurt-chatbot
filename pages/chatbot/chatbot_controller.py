@@ -61,7 +61,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 
     json_data.append({ 'question': user_input })
     response = send_to_endpoint(user_input)
-    json_data.append({ 'question': user_input })
+    json_data.append(response)
     
     chat_history = json.dumps(json_data)
     return chat_history, None
