@@ -9,7 +9,8 @@ def makecard_ag(cardtitle, title, df, style):
                     columnDefs=[{"field": i} for i in df.columns],
                     style={"height": "100%", "width": "100%"}
                 ),
-                style=style, body=True, color="light", inverse=False
+                style=style, body=True, color="light", inverse=False,
+                className="shadow-lg p-3 mb-5 bg-white rounded"
     )
 
     #return dbc.Card(
