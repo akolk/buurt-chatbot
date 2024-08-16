@@ -17,7 +17,7 @@ def sparql_endpoint(query):
     except Exception as e:
         return {'query': 'Sorry, there was an error contacting the sparql server.'}
 
-def sparql_results_to_dataframe(json_data):
+def sparql_to_dataframe(json_data):
     if json_data is None:
         return pd.DataFrame()
 
