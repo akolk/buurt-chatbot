@@ -57,7 +57,6 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
         ret = graphql_endpoint(response['query'])
         gradf = graphql_to_dataframe(ret)
         new_card = makecard_ag("Antwoord", "Graphql", gradf)
-        canvas_content.append(new_card)
 
     elif response['language'] == 'sparql':
         # Handle SPARQL query response (mock example)
@@ -65,18 +64,15 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
         ret = sparql_endpoint(response['query'])
         spardf = sparql_results_to_dataframe(ret)
         new_card = makecard_ag("SPARQL", "antwoord", spardf)
-        canvas_content.append(new_card)
 
     elif response['language'] == 'url':
         # Handle URL response (mock example)
         new_card = makecard("URL", "link", response['query'])
-        canvas_content.append(new_card)
         
     elif response['language'] == 'prompt':
         # Handle URL response (mock example)
         converted_text = convert_to_superscript(response['query'], response['sources'] )
-        new_card = makecard("Antwoord", "Graphql", converted_text  )
-        canvas_content.append(new_card)
+        new_card = makecard("Antwoord", "Graphql", converted_text )
 
     model_output = str(ret)
     chat_history += f"{model_output}<split>"
