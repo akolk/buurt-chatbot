@@ -5,7 +5,8 @@ from components.textbox import render_textbox
 from components.card_ag import makecard_ag
 from components.card_text import makecard
 from services.graphql import graphql_endpoint
-from services.sparql import sparql_endpoint
+from services.sparql import sparql_endpoint, sparql_results_to_dataframe
+import services.config
 
 import os
 import uuid
@@ -15,14 +16,6 @@ import pandas
 
 #from pages.chatbot.chatbot_model import conversation
 
-generated_uuid = uuid.uuid4()
-
-# Initialize the Dash app with a Bootstrap theme
-url_base_pathname=os.environ.get("BASE_URL", "/")
-SPARQL_ENDPOINT = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
-GRAPHQL_ENDPOINT = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
-# Endpoint where chat input is sent
-QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
@@ -91,44 +84,3 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     model_output = str(ret)
     chat_history += f"{model_output}<split>"
     return chat_history, None
-
-def send_to_endpoint(user_input):
-    generated_uuid = "bf20e1fa-d331-48da-ba32-64d29a948ded"
-    QUESTION_ENDPOINT = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
-    conversation_id=f"&conversation_id={generated_uuid}"
-    # Send the user input to the external question endpoint
-    url = f"{QUESTION_ENDPOINT}{user_input}{conversation_id}"
-    print(url)
-    try:
-        response = requests.get(QUESTION_ENDPOINT+user_input+conversation_id)
-        return response.json()
-    except Exception as e:
-        print(e)
-        return {'answer': str(e)}
-
-def convert_to_superscript(text, sources):
-    # Superscript digits in HTML
-    superscript_map = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
-
-    # Regex pattern to find lists of numbers within square brackets
-    pattern = re.compile(r'\[(\d+(?:,\s*\d+)*)\]')
-
-    def replace_with_superscript(match):
-        # Extract the matched number list
-        numbers = match.group(1).translate(superscript_map)
-        
-        # Get the corresponding source URL for the current match
-        if replace_with_superscript.counter - 1 < len(sources):
-            url = sources[replace_with_superscript.counter - 1]
-            replace_with_superscript.counter += 1
-        else:
-            url = '#'
-
-        # Return the clickable superscript
-        return f"<a href='{url}'><sup>{numbers}</sup></a>"
-
-    # Initialize a counter to track the number of matches
-    replace_with_superscript.counter = 1
-
-    # Substitute all occurrences in the text
-    return pattern.sub(replace_with_superscript, text)
