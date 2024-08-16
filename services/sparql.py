@@ -3,6 +3,7 @@ import uuid
 import requests
 import re
 import pandas
+import services.config
 
 def sparql_endpoint(query):
     headers ={
