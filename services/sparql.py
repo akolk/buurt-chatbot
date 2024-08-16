@@ -12,7 +12,7 @@ def sparql_endpoint(query):
             }
     
     try:
-        response = requests.post(SPARQL_ENDPOINT, data=query, headers=headers)
+        response = requests.post(services.config.sparql_endpoint, data=query, headers=headers)
         return response.json()
     except Exception as e:
         return {'query': 'Sorry, there was an error contacting the sparql server.'}
