@@ -1,4 +1,4 @@
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State, ALL
 from app import app
 
 from components.textbox import render_textbox
