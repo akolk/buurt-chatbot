@@ -31,7 +31,7 @@ def render_textbox(obj, box:str = "AI"):
             },
         )
         textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True
-        ,                 className="shadow-lg p-3 mb-5 bg-white rounded")
+        ,                 className="shadow-lg p-3 mb-5 bg-black rounded")
         return html.Div([thumbnail_human, textbox_human])
 
     elif box == "AI":
@@ -76,7 +76,7 @@ def render_textbox(obj, box:str = "AI"):
                         id={"type": "dynamic-button", "index": services.config.buttonidx})
 
         services.config.buttonidx = services.config.buttonidx + 1
-        
+
         return html.Div([thumbnail, b])
     else:
         raise ValueError("Incorrect option for `box`.")
