@@ -65,3 +65,51 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     
     chat_history = json.dumps(json_data)
     return chat_history, None
+
+# Callback to handle card expansion and content update
+@app.callback(
+    Output({"type": "dynamic-card", "index": ALL}, "style"),
+    Output({"type": "card-content", "index": ALL}, "children"),
+    Input({"type": "dynamic-button", "index": ALL}, "n_clicks"),
+    State({"type": "dynamic-card", "index": ALL}, "style")
+    #,
+    #State("graphql-store", "data")  # Access session data from the store
+)
+def resize_card_and_update_content(n_clicks, styles, session_data):
+    ctx = dash.callback_context
+
+    if not ctx.triggered:
+        return styles, [f"Card {i+1} - Click to view data" for i in range(len(session_data))]
+
+    # Identify which card was clicked
+    triggered_index = int(ctx.triggered[0]['prop_id'].split('.')[0].split('"index":')[1].split('}')[0])
+
+    new_styles = []
+    new_contents = []
+
+    for i, (n, style) in enumerate(zip(n_clicks, styles)):
+        if i == triggered_index and n and n % 2 != 0:
+            # Resize and show the graph or table based on session data
+            new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+            data = session_data[i]['data']
+            df = pd.DataFrame(data)
+
+            # Example: Show a graph for even index cards and a table for odd index cards
+            if triggered_index % 2 == 0:
+                fig = px.line(df, x="x", y="y", title=f"Graph for Card {triggered_index + 1}")
+                new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
+            else:
+                new_contents.append(
+                    dash_table.DataTable(
+                        columns=[{"name": i, "id": i} for i in df.columns],
+                        data=df.to_dict('records'),
+                        style_table={"height": "100%", "overflowY": "auto"},
+                        style_cell={"textAlign": "center"},
+                    )
+                )
+        else:
+            # Reset to original size and content
+            new_styles.append({"width": "100px", "height": "100px", "transition": "all 0.5s"})
+            new_contents.append(f"Card {i+1} - Click to view data")
+
+    return new_styles, new_contents
