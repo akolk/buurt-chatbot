@@ -5,6 +5,7 @@ from components.card_ag import makecard_ag
 from components.card_text import makecard
 from services.graphql import graphql_endpoint, graphql_to_dataframe
 from services.sparql import sparql_endpoint, sparql_to_dataframe
+import services.config 
 
 def render_textbox(obj, box:str = "AI"):
     style = {
@@ -71,6 +72,11 @@ def render_textbox(obj, box:str = "AI"):
         else:
             textbox = html.P("nog niet geimplementeerd")
             
-        return html.Div([thumbnail, textbox])
+        b = dbc.Button(textbox, color="link", style={"border": "none", "padding": "0"},
+                        id={"type": "dynamic-button", "index": services.config.buttonidx})
+
+        services.config.buttonidx = services.config.buttonidx + 1
+        
+        return html.Div([thumbnail, b])
     else:
         raise ValueError("Incorrect option for `box`.")
