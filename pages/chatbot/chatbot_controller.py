@@ -82,9 +82,12 @@ def resize_card_and_update_content(n_clicks, styles):
     #if not ctx.triggered:
     #    return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx)]
 
-    # Identify which card was clicked
-    triggered_index = int(ctx.triggered[0]['prop_id'].split('.')[0].split('"index":')[1].split('}')[0])
-
+    # Identify which button was clicked
+    triggered_id = ctx.triggered[0]["prop_id"].split(".")[0]
+    
+    # Retrieve the index of the triggered button
+    index = eval(triggered_id)["index"]
+    
     new_styles = []
     new_contents = []
 
