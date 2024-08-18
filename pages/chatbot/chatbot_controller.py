@@ -81,12 +81,8 @@ def resize_card_and_update_content(n_clicks, styles):
 
     #if not ctx.triggered:
     #    return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx)]
-
-    # Identify which button was clicked
-    triggered_id = ctx.triggered[0]["prop_id"].split(".")[0]
     
-    # Retrieve the index of the triggered button
-    index = eval(triggered_id)["index"]
+    clicked_button = n_clicks.index(max(n_clicks)) + 1
     
     new_styles = []
     new_contents = []
@@ -100,7 +96,7 @@ def resize_card_and_update_content(n_clicks, styles):
     }
 
     for i, (n, style) in enumerate(zip(n_clicks, styles)):
-        if i == triggered_index and n and n % 2 != 0:
+        if i == clicked_button and n and n % 2 != 0:
             # Resize and show the graph or table based on session data
             new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
             data = session_data[i]
