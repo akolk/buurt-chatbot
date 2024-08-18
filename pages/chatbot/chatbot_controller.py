@@ -77,10 +77,8 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #State("graphql-store", "data")  # Access session data from the store
 )
 def resize_card_and_update_content(n_clicks, styles):
-    ctx = dash.callback_context
-
-    #if not ctx.triggered:
-    #    return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx)]
+    if not n_clicks or max(n_clicks) == 0:
+        return styles, ['No button clicked yet.']
     
     clicked_button = n_clicks.index(max(n_clicks)) + 1
     
