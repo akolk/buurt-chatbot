@@ -35,7 +35,6 @@ def display_page(pathname):
     return page_not_found()
 
 if __name__ == '__main__':
-    services.config.APP_TITLE = "Buurt Chatbot"
     services.config.conversation_id = uuid.uuid4()
     services.config.sparql_endpoint = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
     services.config.graphql_endpoint = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
