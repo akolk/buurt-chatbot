@@ -6,14 +6,14 @@ import services.config
 def makecard_ag(cardtitle, title, df, style):
     return dbc.Card(
                 html.Div(
-                                    f"Card {i+1} - Click to view data",
-                                    id={"type": "card-content", "index": services.config.buttonidx},
+                                    f"Card {services.config.buttonidx} - Click to view data",
+                                    id={"type": "card-content", "index": },
                                     style={"textAlign": "center"},
                 ),
-                id={"type": "dynamic-card", "index": i},
+                id={"type": "dynamic-card", "index": services.config.buttonidx},
                 style={"width": "80px", "height": "100px", "transition": "all 0.5s"}
                 #dag.AgGrid(
-                #            rowData=df.to_dict(orient="records"),
+                #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
                 #            columnDefs=[{"field": i} for i in df.columns],
                 #            #style=style
                 #            style={"height": "80%", "width": "100%"}
