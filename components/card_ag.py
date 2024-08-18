@@ -7,7 +7,7 @@ def makecard_ag(cardtitle, title, df, style):
     return dbc.Card(
                 html.Div(
                                     f"Card {services.config.buttonidx} - Click to view data",
-                                    id={"type": "card-content", "index": },
+                                    id={"type": "card-content", "index": services.config.buttonidx},
                                     style={"textAlign": "center"},
                 ),
                 id={"type": "dynamic-card", "index": services.config.buttonidx},
