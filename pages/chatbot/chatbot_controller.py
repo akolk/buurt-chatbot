@@ -116,9 +116,9 @@ def resize_card_and_update_content(n_clicks, styles):
                         style_cell={"textAlign": "center"},
                     )
                 )
-        else:
-            # Reset to original size and content
-            new_styles.append({"width": "100px", "height": "100px", "transition": "all 0.5s"})
-            new_contents.append(f"Card {i+1} - Click to view data")
+        #else:
+        #    # Reset to original size and content
+        #    new_styles.append({"width": "100px", "height": "100px", "transition": "all 0.5s"})
+        #    new_contents.append(f"Card {i+1} - Click to view data")
 
     return new_styles, new_contents
