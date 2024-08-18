@@ -72,8 +72,12 @@ def render_textbox(obj, box:str = "AI"):
         else:
             textbox = html.P("nog niet geimplementeerd")
             
-        b = dbc.Button(textbox, color="link", style={"border": "none", "padding": "0"},
-                        id={"type": "dynamic-button", "index": services.config.buttonidx})
+        b = dbc.Button(
+                       textbox, 
+                       color="link", 
+                       style={"border": "none", "padding": "0"},
+                       id={"type": "dynamic-button", "index": services.config.buttonidx}
+                      )
 
         services.config.buttonidx = services.config.buttonidx + 1
 
