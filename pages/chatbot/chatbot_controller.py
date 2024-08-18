@@ -76,14 +76,13 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #,
     #State("graphql-store", "data")  # Access session data from the store
 )
-def resize_card_and_update_content(n_clicks, styles):
-    if n_clicks is None:
-        return styles, []
-         
+def resize_card_and_update_content(button_clicks, styles):
+    if len(button_clicks) < 1:
+        raise PreventUpdate
+    n_clicks = ctx.triggered[0]["value"]
     if not n_clicks:
-        return styles, []
-    
-    clicked_button = n_clicks.index(max(n_clicks)) + 1
+        raise PreventUpdate
+    button_id = ctx.triggered_id.index
     
     new_styles = []
     new_contents = []
@@ -95,30 +94,22 @@ def resize_card_and_update_content(n_clicks, styles):
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         # Add more datasets as needed
     }
+    new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+    data = session_data[button_id]
+    df = pd.DataFrame(data)
 
-    for i, (n, style) in enumerate(zip(n_clicks, styles)):
-        if i == clicked_button and n and n % 2 != 0:
-            # Resize and show the graph or table based on session data
-            new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-            data = session_data[i]
-            df = pd.DataFrame(data)
-
-            # Example: Show a graph for even index cards and a table for odd index cards
-            if triggered_index % 2 == 0:
-                fig = px.line(df, x="x", y="y", title=f"Graph for Card {triggered_index + 1}")
-                new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-            else:
-                new_contents.append(
-                    dash_table.DataTable(
-                        columns=[{"name": i, "id": i} for i in df.columns],
-                        data=df.to_dict('records'),
-                        style_table={"height": "100%", "overflowY": "auto"},
-                        style_cell={"textAlign": "center"},
-                    )
-                )
-        #else:
-        #    # Reset to original size and content
-        #    new_styles.append({"width": "100px", "height": "100px", "transition": "all 0.5s"})
-        #    new_contents.append(f"Card {i+1} - Click to view data")
+     # Example: Show a graph for even index cards and a table for odd index cards
+     if n_clicks % 2 == 0:
+        fig = px.line(df, x="x", y="y", title=f"Graph for Card {triggered_index + 1}")
+        new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
+     else:
+        new_contents.append(
+         dash_table.DataTable(
+            columns=[{"name": i, "id": i} for i in df.columns],
+            data=df.to_dict('records'),
+            style_table={"height": "100%", "overflowY": "auto"},
+            style_cell={"textAlign": "center"},
+         )
+        )
 
     return new_styles, new_contents
