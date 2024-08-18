@@ -75,11 +75,11 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #,
     #State("graphql-store", "data")  # Access session data from the store
 )
-def resize_card_and_update_content(n_clicks, styles, session_data):
+def resize_card_and_update_content(n_clicks, styles):
     ctx = dash.callback_context
 
     if not ctx.triggered:
-        return styles, [f"Card {i+1} - Click to view data" for i in range(len(session_data))]
+        return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx))]
 
     # Identify which card was clicked
     triggered_index = int(ctx.triggered[0]['prop_id'].split('.')[0].split('"index":')[1].split('}')[0])
@@ -87,11 +87,19 @@ def resize_card_and_update_content(n_clicks, styles, session_data):
     new_styles = []
     new_contents = []
 
+    session_data = {
+        0: pd.DataFrame({"x": range(10), "y": [i ** 2 for i in range(10)]}),
+        1: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
+        2: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
+        3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
+        # Add more datasets as needed
+    }
+
     for i, (n, style) in enumerate(zip(n_clicks, styles)):
         if i == triggered_index and n and n % 2 != 0:
             # Resize and show the graph or table based on session data
             new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-            data = session_data[i]['data']
+            data = session_data[i]
             df = pd.DataFrame(data)
 
             # Example: Show a graph for even index cards and a table for odd index cards
