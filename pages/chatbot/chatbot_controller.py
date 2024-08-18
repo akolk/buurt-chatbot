@@ -98,11 +98,11 @@ def resize_card_and_update_content(button_clicks, styles):
     data = session_data[button_id]
     df = pd.DataFrame(data)
 
-     # Example: Show a graph for even index cards and a table for odd index cards
-     if n_clicks % 2 == 0:
+    # Example: Show a graph for even index cards and a table for odd index cards
+    if n_clicks % 2 == 0:
         fig = px.line(df, x="x", y="y", title=f"Graph for Card {triggered_index + 1}")
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-     else:
+    else:
         new_contents.append(
          dash_table.DataTable(
             columns=[{"name": i, "id": i} for i in df.columns],
