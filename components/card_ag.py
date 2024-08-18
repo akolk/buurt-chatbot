@@ -9,7 +9,7 @@ def makecard_ag(cardtitle, title, df, style):
                                     f"Card {i+1} - Click to view data",
                                     id={"type": "card-content", "index": services.config.buttonidx},
                                     style={"textAlign": "center"},
-                )
+                ),
                 id={"type": "dynamic-card", "index": i},
                 style={"width": "80px", "height": "100px", "transition": "all 0.5s"}
                 #dag.AgGrid(
