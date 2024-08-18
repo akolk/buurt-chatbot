@@ -3,7 +3,7 @@ from dash import Dash
 import os
 import services.config
 
-services.config.APP_TITLE = "Buurt Chatbot"
+
 
 app = Dash(__name__,
             title=services.config.APP_TITLE,

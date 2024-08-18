@@ -30,11 +30,12 @@ def display_page(pathname):
     :return: page
     """
 
-    if pathname in '/' or pathname in '/chatbot':
+    if pathname in services.config.url_base_pathname or pathname in services.config.url_base_pathname + 'chatbot':
         return render_chatbot()
     return page_not_found()
 
 if __name__ == '__main__':
+    services.config.APP_TITLE = "Buurt Chatbot"
     services.config.conversation_id = uuid.uuid4()
     services.config.sparql_endpoint = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
     services.config.graphql_endpoint = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")

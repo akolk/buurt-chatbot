@@ -4,6 +4,7 @@ from dash import dcc, html
 
 def makecard_ag(cardtitle, title, df, style):
     return dbc.Card(
+        
         dag.AgGrid(
                     rowData=df.to_dict(orient="records"),
                     columnDefs=[{"field": i} for i in df.columns],
