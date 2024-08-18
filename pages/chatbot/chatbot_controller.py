@@ -80,7 +80,7 @@ def resize_card_and_update_content(n_clicks, styles):
     if n_clicks is None:
         return styles, []
          
-    if not n_clicks or max(n_clicks) == 0:
+    if not n_clicks:
         return styles, []
     
     clicked_button = n_clicks.index(max(n_clicks)) + 1
