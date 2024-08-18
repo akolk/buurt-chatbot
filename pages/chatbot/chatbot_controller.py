@@ -79,7 +79,7 @@ def resize_card_and_update_content(n_clicks, styles):
     ctx = dash.callback_context
 
     if not ctx.triggered:
-        return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx))]
+        return styles, [f"Card {i+1} - Click to view data" for i in range(services.config.buttonidx)]
 
     # Identify which card was clicked
     triggered_index = int(ctx.triggered[0]['prop_id'].split('.')[0].split('"index":')[1].split('}')[0])
