@@ -10,7 +10,7 @@ import services.config
 def render_textbox(obj, box:str = "AI"):
     style = {
         "max-width": "60%",
-        "width": "max-content",
+        "width": "50%",
         "padding": "5px 10px",
         "border-radius": 25,
         "margin-bottom": 20,
@@ -48,7 +48,7 @@ def render_textbox(obj, box:str = "AI"):
             },
         )
         textbox_ai = dbc.Card(obj['chatbotresponse'], style=style, body=True, color="primary", inverse=True
-        ,                 className="shadow-lg p-3 mb-5 bg-black rounded")           
+        ,                 className="shadow-lg p-3 mb-5 bg-white rounded")           
         b = dbc.Button(
                        textbox_ai, 
                        color="link", 
