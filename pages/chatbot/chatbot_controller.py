@@ -43,7 +43,7 @@ def update_display(chat_history):
         
     return [
         render_textbox(item, box="human") if 'question' in item else render_textbox(item, box="AI")
-        for item in chat_history[:-1]
+        for item in chat_history
     ]
 
 @app.callback(
@@ -72,7 +72,10 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     chat_history.append({ 'question': user_input })
 
     response = send_to_endpoint(user_input)
-    chat_history.append(response)
+
+    chatbotresponse, compleet = process_response(response)
+    chat_history.append({buttonidx: services.config.buttonidx, answer: compleet, chatbotanswer: chatbotresponse})
+    services.config.buttonidx++
 
     return chat_history, None
 

@@ -78,8 +78,8 @@ def render_textbox(obj, box:str = "AI"):
                        style={"border": "none", "padding": "0"},
                        id={"type": "dynamic-button", "index": services.config.buttonidx}
                       )
-
-        services.config.buttonidx = services.config.buttonidx + 1
+        if 'buttonidx' not in obj:
+           obj["buttonidx"] = services.config.buttonidx++
 
         return html.Div([thumbnail, b])
     else:
