@@ -13,6 +13,7 @@ from services.graphql import graphql_endpoint, graphql_to_dataframe
 from services.sparql import sparql_endpoint, sparql_to_dataframe
 from services.endpoint import send_to_endpoint
 from services.text import convert_to_superscript
+from services.process_response import process_response
 import services.config
 
 import os
@@ -75,7 +76,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 
     chatbotresponse, compleet = process_response(response)
     chat_history.append({buttonidx: services.config.buttonidx, answer: compleet, chatbotanswer: chatbotresponse})
-    services.config.buttonidx++
+    services.config.buttonidx = services.config.buttonidx + 1
 
     return chat_history, None
 

@@ -47,39 +47,13 @@ def render_textbox(obj, box:str = "AI"):
                 "float": "left"
             },
         )
-        if obj['language'] == 'prompt':
-            textbox = dbc.Card(obj['query'], 
-                style=style, body=True, color="light", inverse=False,
-                className="shadow-lg p-3 mb-5 bg-white rounded"
-            )
-        elif obj['language'] == 'graphql':
-            res = graphql_endpoint(obj['query'])
-            pd = graphql_to_dataframe(res)
-            style['height'] = '200px'
-            style['width'] = '1000px'
-            #textbox = makecard('debug', 'debug', pd.to_string(), style)
-            textbox = makecard_ag('titel 1', 'titel 2', pd, style)
-        elif obj['language'] == 'sparql': 
-            res = sparql_endpoint(obj['query'])
-            #textbox = makecard('debug', 'debug', str(res))
-            pd = sparql_to_dataframe(res)
-            textbox = makecard_ag('titel 1', 'titel 2', pd, style)
-        elif obj['language'] == 'url':
-            res = sparql_endpoint(obj['query'])
-            textbox = dbc.Card(obj['query'], style=style, body=True, color="light", inverse=False,
-            className="shadow-lg p-3 mb-5 bg-white rounded"
-            )
-        else:
-            textbox = html.P("nog niet geimplementeerd")
-            
+                   
         b = dbc.Button(
                        textbox, 
                        color="link", 
                        style={"border": "none", "padding": "0"},
                        id={"type": "dynamic-button", "index": services.config.buttonidx}
                       )
-        if 'buttonidx' not in obj:
-           obj["buttonidx"] = services.config.buttonidx++
 
         return html.Div([thumbnail, b])
     else:
