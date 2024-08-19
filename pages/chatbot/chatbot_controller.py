@@ -112,7 +112,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     orginal_content = []
 
     session_data = {
-        0: pd.DataFrame({"x": range(10), "y": [i ** 2   for i in range(20)]}),
+        0: pd.DataFrame({"x": range(10), "y": [i ** 2   for i in range(10)]}),
         1: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         2: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
