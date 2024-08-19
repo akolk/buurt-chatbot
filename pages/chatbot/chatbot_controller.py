@@ -104,11 +104,11 @@ def resize_card_and_update_content(button_clicks, styles):
 
     # Example: Show a graph for even index cards and a table for odd index cards
     if n_clicks % 2 == 0:
-        fig = px.line(df, x="x", y="y", title=f"Graph for Card {triggered_index + 1}")
+        fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id + 1}")
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
     else:
         new_contents.append(
-            html.Div("Hier komt wat anders.") 
+            html.Div(f"Hier komt wat anders voor {button_id + 1}.") 
         )
 
     return new_styles, new_contents
