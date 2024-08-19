@@ -1,6 +1,6 @@
 import dash
 
-from dash import ctx
+from dash import ctx, html
 from dash.dependencies import Input, Output, State, ALL
 from app import app
 from dash.exceptions import PreventUpdate
@@ -107,12 +107,7 @@ def resize_card_and_update_content(button_clicks, styles):
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
     else:
         new_contents.append(
-         dash_table.DataTable(
-            columns=[{"name": i, "id": i} for i in df.columns],
-            data=df.to_dict('records'),
-            style_table={"height": "100%", "overflowY": "auto"},
-            style_cell={"textAlign": "center"},
-         )
+            html.Div("Hier komt wat anders.") 
         )
 
     return new_styles, new_contents
