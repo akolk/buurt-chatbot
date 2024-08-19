@@ -78,7 +78,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     chat_history.append({
                          'buttonidx': services.config.buttonidx, 
                          'answer': compleet,
-                         'chatbotanswer': chatbotresponse
+                         'chatbotresponse': chatbotresponse
                         })
     services.config.buttonidx = services.config.buttonidx + 1
 
