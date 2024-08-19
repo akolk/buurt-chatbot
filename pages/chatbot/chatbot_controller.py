@@ -24,12 +24,15 @@ import json
 
 @app.callback(
     Output('input-box', 'value'),
+    Output(component_id="store-conversation", component_property="data"), 
     Input('reset-button', 'n_clicks')
 )
 def reset_input(n_clicks):
-    if n_clicks:
-        return ''
     services.config.conversation_id = uuid.uuid4();
+    
+    if n_clicks:
+        return '', []
+
     return dash.no_update
 
 @app.callback(
