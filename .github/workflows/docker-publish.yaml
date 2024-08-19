@@ -82,7 +82,7 @@ jobs:
              org.opencontainers.image.source=https://github.com/${{ github.repository }}
              org.opencontainers.image.created=${{ steps.prep.outputs.created }}
              org.opencontainers.image.revision=${{ github.sha }}
-             org.opencontainers.image.description=SolarEdge GraphQL Mesh Playground
+             org.opencontainers.image.description=Buurt Chatbot
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
