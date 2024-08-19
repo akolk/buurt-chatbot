@@ -23,6 +23,16 @@ import pandas as pd
 import json
 
 @app.callback(
+    Output('input-box', 'value'),
+    Input('reset-button', 'n_clicks')
+)
+def reset_input(n_clicks):
+    if n_clicks:
+        return ''
+    services.config.conversation_id = uuid.uuid4();
+    return dash.no_update
+
+@app.callback(
     Output(component_id="display-conversation", component_property="children"), 
     Input(component_id="store-conversation", component_property="data")
 )
