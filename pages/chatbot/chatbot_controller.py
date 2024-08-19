@@ -104,9 +104,9 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
         raise PreventUpdate
     button_id = ctx.triggered_id.index
     print(button_id)
-    print(len(styles)
+    print(len(styles))
     print(len(original_content))
-    
+
     new_styles = []
     new_contents = []
     orginal_content = []
