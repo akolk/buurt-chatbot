@@ -53,7 +53,7 @@ def render_textbox(obj, box:str = "AI"):
                        textbox_ai, 
                        color="link", 
                        style={"border": "none", "padding": "0"},
-                       id={"type": "dynamic-button", "index": services.config.buttonidx}
+                       id={"type": "dynamic-button", "index": obj['buttonidx']}
                       )
 
         return html.Div([thumbnail, b])
