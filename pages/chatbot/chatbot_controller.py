@@ -1,4 +1,6 @@
 import dash
+
+from dash import ctx
 from dash.dependencies import Input, Output, State, ALL
 from app import app
 
