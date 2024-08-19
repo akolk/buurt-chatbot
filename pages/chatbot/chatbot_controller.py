@@ -18,7 +18,7 @@ import os
 import uuid
 import requests
 import re
-import pandas
+import pandas as pd
 import json
 
 @app.callback(
