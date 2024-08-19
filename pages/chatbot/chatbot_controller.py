@@ -1,6 +1,6 @@
 import dash
 
-from dash import ctx, html
+from dash import ctx, html, dcc
 from dash.dependencies import Input, Output, State, ALL
 from app import app
 from dash.exceptions import PreventUpdate
