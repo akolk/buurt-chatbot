@@ -112,7 +112,7 @@ def resize_card_and_update_content(button_clicks, styles):
         # Add more datasets as needed
     }
     new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-    data = session_data[button_id]
+    data = session_data[0]
     df = pd.DataFrame(data)
 
     # Example: Show a graph for even index cards and a table for odd index cards
