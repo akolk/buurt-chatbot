@@ -96,18 +96,23 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #State("graphql-store", "data")  # Access session data from the store
 )
 def resize_card_and_update_content(button_clicks, styles, original_content):
+    print(len(button_clicks))
     if len(button_clicks) < 1:
         raise PreventUpdate
     n_clicks = ctx.triggered[0]["value"]
     if not n_clicks:
         raise PreventUpdate
     button_id = ctx.triggered_id.index
+    print(button_id)
+    print(len(styles)
+    print(len(original_content))
     
     new_styles = []
     new_contents = []
+    orginal_content = []
 
     session_data = {
-        0: pd.DataFrame({"x": range(10), "y": [i ** 2 for i in range(10)]}),
+        0: pd.DataFrame({"x": range(10), "y": [i ** 2   for i in range(20)]}),
         1: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         2: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
@@ -124,7 +129,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     elif n_clicks % 3 == 1:
         # store the orginal children somewhere 
         if original_content is None:
-            original_content = current_children
+            original_content.append(current_children)
         new_contents.append(
             html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
