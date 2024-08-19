@@ -25,3 +25,20 @@ def process_response(obj):
     
     return chatresponse, obj
 
+def find_all_by_key(obj, key_to_find):
+    if not obj:
+        return []
+    
+    result = []
+    for key, value in obj.items():
+        if key == key_to_find or key.startswith(key_to_find + '_'):
+            result.append(value)
+        elif isinstance(value, dict):
+            result.extend(find_all_by_key(value, key_to_find))
+    
+    return result
+
+
+def findchatresponse(data):
+    answer_chatbot = [{'chatbotanswer': item} for item in find_all_by_key(data, 'chatbotanswer')]
+
