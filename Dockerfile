@@ -15,9 +15,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8050
 
 # Define environment variable to specify the host
-ENV DASH_HOST 0.0.0.0
+ENV DASH_HOST=0.0.0.0
 
-LABEL org.opencontainers.image.description "Dit is een demonstrator die tegen Kadaster endpoints praat en cartgpt een beetje na aapt"
+LABEL org.opencontainers.image.description="Dit is een demonstrator die tegen Kadaster endpoints praat en cartgpt een beetje na aapt"
 
 # Run app.py when the container launches
 #CMD ["python", "app_buurt.py"]
