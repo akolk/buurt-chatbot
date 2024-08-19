@@ -28,9 +28,10 @@ import json
 )
 def reset_input(n_clicks):
     services.config.conversation_id = uuid.uuid4();
-    
+    dcc.Store(id="store-conversation", data="[]")
+
     if n_clicks:
-        return ''
+        return '', []
 
     return dash.no_update
 
