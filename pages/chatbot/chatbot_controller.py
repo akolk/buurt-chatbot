@@ -3,6 +3,7 @@ import dash
 from dash import ctx
 from dash.dependencies import Input, Output, State, ALL
 from app import app
+from dash.exceptions import PreventUpdate
 
 from components.textbox import render_textbox
 from components.card_ag import makecard_ag
