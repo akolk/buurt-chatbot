@@ -31,7 +31,7 @@ def reset_input(n_clicks):
     dcc.Store(id="store-conversation", data="[]")
 
     if n_clicks:
-        return '', []
+        return ''
 
     return dash.no_update
 
@@ -116,12 +116,13 @@ def resize_card_and_update_content(button_clicks, styles):
     df = pd.DataFrame(data)
 
     # Example: Show a graph for even index cards and a table for odd index cards
-    if n_clicks % 2 == 0:
-        fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id + 1}")
+    if n_clicks % 3 == 2:
+        fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-    else:
+    elif n_clicks % 3 == 1:
         new_contents.append(
-            html.Div(f"Hier komt wat anders voor {button_id + 1}.") 
+            html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
+    
 
     return new_styles, new_contents
