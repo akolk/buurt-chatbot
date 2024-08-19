@@ -47,7 +47,7 @@ def render_textbox(obj, box:str = "AI"):
                 "float": "left"
             },
         )
-        textbox_ai = dbc.Card(obj['chatbotresponse'], style=style, body=True, color="primary", inverse=True
+        textbox_ai = dbc.Card(obj['chatbotresponse'], style=style, body=True, color="light", inverse=True
         ,                 className="shadow-lg p-3 mb-5 bg-white rounded")           
         b = dbc.Button(
                        textbox_ai, 
