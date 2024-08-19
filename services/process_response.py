@@ -9,7 +9,7 @@ import pandas as pd
 import json
 
 
-def process_response(obj)
+def process_response(obj):
     if obj['language'] == 'prompt':
         chatresponse = obj['query']
     elif obj['language'] == 'graphql':
