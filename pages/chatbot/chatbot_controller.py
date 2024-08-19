@@ -88,12 +88,14 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 @app.callback(
     Output({"type": "dynamic-card", "index": ALL}, "style"),
     Output({"type": "card-content", "index": ALL}, "children"),
+    Output({"type": "original-content-store", "index": ALL}, "data"),
     Input({"type": "dynamic-button", "index": ALL}, "n_clicks"),
-    State({"type": "dynamic-card", "index": ALL}, "style")
+    State({"type": "dynamic-card", "index": ALL}, "style"),
+    State({"type": "original-content-store", "index": ALL}, "data"),
     #,
     #State("graphql-store", "data")  # Access session data from the store
 )
-def resize_card_and_update_content(button_clicks, styles):
+def resize_card_and_update_content(button_clicks, styles, original_content):
     if len(button_clicks) < 1:
         raise PreventUpdate
     n_clicks = ctx.triggered[0]["value"]
@@ -121,10 +123,12 @@ def resize_card_and_update_content(button_clicks, styles):
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
     elif n_clicks % 3 == 1:
         # store the orginal children somewhere 
+        if original_content is None:
+            original_content = current_children
         new_contents.append(
             html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
     elif n_clicks % 3 == 0:
-        return styles, []
+        return styles, [original_content]
 
     return new_styles, new_contents
