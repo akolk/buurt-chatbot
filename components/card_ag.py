@@ -5,7 +5,7 @@ import services.config
 
 def makecard_ag(cardtitle, title, df, style):
     return dbc.Card(
-                dcc.Store(id={"type": "original-content-store", "index": services.config.button_id}),
+                dcc.Store(id={"type": "original-content-store", "index": services.config.buttonidx}),
                 html.Div(
                                     f"Card {services.config.buttonidx} - Click to view data",
                                     id={"type": "card-content", "index": services.config.buttonidx},
