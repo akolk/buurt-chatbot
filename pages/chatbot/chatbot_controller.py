@@ -28,7 +28,7 @@ import json
 )
 def reset_input(n_clicks):
     services.config.conversation_id = uuid.uuid4();
-    dcc.Store(id="store-conversation", data="[]")
+    dcc.Store(id="store-conversation", data=[])
 
     if n_clicks:
         return ''
@@ -40,15 +40,10 @@ def reset_input(n_clicks):
     Input(component_id="store-conversation", component_property="data")
 )
 def update_display(chat_history):
-    # the chat_history is a string representation of list of json objects. So we need to convert it back to json
-    if isinstance(chat_history, str):
-        json_data = json.loads(chat_history)
-    else:
-        json_data = None
         
     return [
         render_textbox(item, box="human") if 'question' in item else render_textbox(item, box="AI")
-        for item in json_data
+        for item in chat_history[:-1]
     ]
 
 @app.callback(
@@ -74,14 +69,11 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     if user_input is None or user_input == "":
         return chat_history, None
 
-    if isinstance(chat_history, str):
-        json_data = json.loads(chat_history)
+    chat_history.append({ 'question': user_input })
 
-    json_data.append({ 'question': user_input })
     response = send_to_endpoint(user_input)
-    json_data.append(response)
-    
-    chat_history = json.dumps(json_data)
+    chat_history.append(response)
+
     return chat_history, None
 
 # Callback to handle card expansion and content update
