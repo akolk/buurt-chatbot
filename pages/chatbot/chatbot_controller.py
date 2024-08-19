@@ -129,6 +129,6 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
             html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
     elif n_clicks % 3 == 0:
-        return styles, [original_content]
+        return styles, [original_content], original_content
 
-    return new_styles, new_contents
+    return new_styles, new_contents, original_content
