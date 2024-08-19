@@ -75,7 +75,11 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     response = send_to_endpoint(user_input)
 
     chatbotresponse, compleet = process_response(response)
-    chat_history.append({buttonidx: services.config.buttonidx, answer: compleet, chatbotanswer: chatbotresponse})
+    chat_history.append({
+                         'buttonidx': services.config.buttonidx, 
+                         'answer': compleet,
+                         'chatbotanswer': chatbotresponse
+                        })
     services.config.buttonidx = services.config.buttonidx + 1
 
     return chat_history, None
