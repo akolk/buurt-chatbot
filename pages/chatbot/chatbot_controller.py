@@ -120,9 +120,11 @@ def resize_card_and_update_content(button_clicks, styles):
         fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
         new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
     elif n_clicks % 3 == 1:
+        # store the orginal children somewhere 
         new_contents.append(
             html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
-    
+    elif n_clicks % 3 == 0:
+        return styles, []
 
     return new_styles, new_contents
