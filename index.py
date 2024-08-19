@@ -10,6 +10,9 @@ from app import app
 import services.config
 import os
 import uuid
+import logging
+
+
 
 def serve_content():
     """
@@ -35,12 +38,19 @@ def display_page(pathname):
     return page_not_found()
 
 if __name__ == '__main__':
+
     services.config.conversation_id = uuid.uuid4()
     services.config.sparql_endpoint = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
     services.config.graphql_endpoint = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
     services.config.url_base_pathname = os.environ.get("BASE_URL", "/")
     services.config.service_endpoint = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
-    
+    # Set up logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+    services.config.logger = logging.getLogger(services.config.APP_TITLE)
+
     HOST = os.environ.get('HOST', '0.0.0.0')
     PORT = int(os.environ.get('PORT', 8050))
 

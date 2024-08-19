@@ -96,16 +96,16 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #State("graphql-store", "data")  # Access session data from the store
 )
 def resize_card_and_update_content(button_clicks, styles, original_content):
-    print(len(button_clicks))
+    services.config.logger.info(len(button_clicks))
     if len(button_clicks) < 1:
         raise PreventUpdate
     n_clicks = ctx.triggered[0]["value"]
     if not n_clicks:
         raise PreventUpdate
     button_id = ctx.triggered_id.index
-    print(button_id)
-    print(len(styles))
-    print(len(original_content))
+    services.config.logger.info(button_id)
+    services.config.logger.info(len(styles))
+    services.config.logger.info(len(original_content))
 
     new_styles = []
     new_contents = []
