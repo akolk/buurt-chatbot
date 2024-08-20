@@ -96,13 +96,14 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #State("graphql-store", "data")  # Access session data from the store
 )
 def resize_card_and_update_content(button_clicks, styles, original_content):
-    services.config.logger.info("button clicks: "+ str(len(button_clicks)))
+    services.config.logger.info("button clicks: "+ str(button_clicks))
 
     if len(button_clicks) < 1:
         raise PreventUpdate
     n_clicks = ctx.triggered[0]["value"]
     if not n_clicks:
         raise PreventUpdate
+
     button_id = ctx.triggered_id.index
     services.config.logger.info("button id: "+ str(button_id))
     services.config.logger.info("styles #: "+ str(len(styles)))
@@ -120,25 +121,32 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         # Add more datasets as needed
     }
-    #new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-    styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
+        
     data = session_data[0]
     df = pd.DataFrame(data)
 
-    # Example: Show a graph for even index cards and a table for odd index cards
-    if n_clicks % 3 == 2:
-        fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
-        new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-        #orginal_content[button_id] = dcc.Graph(figure=fig, style={"height": "100%"})
-    elif n_clicks % 3 == 1:
-        # store the orginal children somewhere 
-        if original_content is None:
-            original_content = current_children
-        new_contents.append(
-            html.Div(f"Hier komt wat anders voor {button_id}.") 
-        )
-        #orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
-    elif n_clicks % 3 == 0:
-        return styles, new_contents, original_content
+    #new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+    styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
+    
+    for i, n in enumerate(button_clicks):
 
-    return styles, new_contents, original_content
+        # Example: Show a graph for even index cards and a table for odd index cards
+        if n % 3 == 2:
+           fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
+           new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
+           new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+        #orginal_content[button_id] = dcc.Graph(figure=fig, style={"height": "100%"})
+        elif n % 3 == 1:
+           # store the orginal children somewhere 
+
+           original_content = current_children
+           new_contents.append(
+              html.Div(f"Hier komt wat anders voor {button_id}.") 
+           )
+           new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+           #orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
+        elif n_clicks % 3 == 0:
+           new_styles.append({"width": "100%", "height": "100%", "transition": "all 0.5s"})
+           new_contents.append(original_content)
+
+    return new_styles, new_contents, original_content
