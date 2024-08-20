@@ -145,7 +145,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
            )
            new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
            #orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
-        elif n_clicks % 3 == 0:
+        elif n % 3 == 0:
            new_styles.append({"width": "100%", "height": "100%", "transition": "all 0.5s"})
            new_contents.append(original_content[i])
 
