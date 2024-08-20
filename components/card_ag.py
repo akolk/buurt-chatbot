@@ -9,10 +9,10 @@ def makecard_ag(id, text, obj, style):
                 html.Div(
                                     f"{text}",
                                     id={"type": "card-content", "index": id},
-                                    style={"textAlign": "center"},
+                                    style={"textAlign": "left"},
                 )],
                 id={"type": "dynamic-card", "index": id},
-                style={"width": "80px", "height": "100px", "transition": "all 0.5s"}
+                style={"width": "max-content", "height": "max-content", "transition": "all 0.5s"}
                 #dag.AgGrid(
                 #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
                 #            columnDefs=[{"field": i} for i in df.columns],
