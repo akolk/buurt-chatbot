@@ -26,18 +26,27 @@ def process_response(obj):
     return chatresponse, obj
 
 def find_all_by_key(obj, key_to_find):
-    services.config.logger.info('find_all_by_key: '+ key_to_find + "   " + str(obj) )
+    services.config.logger.info('find_all_by_key: ' + key_to_find + "   " + str(obj))
+    
     if not obj:
         return []
     
     result = []
-    for key, value in obj.items():
-        if key == key_to_find or key.startswith(key_to_find + '_'):
-            result.append(value)
-        elif isinstance(value, dict):
-            result.extend(find_all_by_key(value, key_to_find))
-    services.config.logger.info('find_all_by_key: found ' + str(result) )
+    
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key == key_to_find or key.startswith(key_to_find + '_'):
+                result.append(value)
+            elif isinstance(value, (dict, list)):
+                result.extend(find_all_by_key(value, key_to_find))
+    elif isinstance(obj, list):
+        for item in obj:
+            if isinstance(item, (dict, list)):
+                result.extend(find_all_by_key(item, key_to_find))
+    
+    services.config.logger.info('find_all_by_key: found ' + str(result))
     return result
+
 
 
 def findchatresponse(data):
