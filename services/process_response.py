@@ -14,10 +14,10 @@ def process_response(obj):
         chatresponse = obj['query']
     elif obj['language'] == 'graphql':
         res = graphql_endpoint(obj['query'])
-        chatresponse = findchatresponse(res).join('. ')
+        chatresponse = findchatresponse(res)
     elif obj['language'] == 'sparql': 
         res = sparql_endpoint(obj['query'])
-        chatresponse = findchatresponse(res).join('. ')
+        chatresponse = findchatresponse(res)
     elif obj['language'] == 'url':
         chatresponse = obj['query']
     else:
