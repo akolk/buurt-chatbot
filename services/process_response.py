@@ -26,7 +26,7 @@ def process_response(obj):
     return chatresponse, obj
 
 def find_all_by_key(obj, key_to_find):
-    services.config.logger.info('find_all_by_key: ' key_to_find + "   "+ str(obj) )
+    services.config.logger.info('find_all_by_key: '+ key_to_find + "   " + str(obj) )
     if not obj:
         return []
     
