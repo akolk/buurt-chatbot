@@ -128,17 +128,17 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     # Example: Show a graph for even index cards and a table for odd index cards
     if n_clicks % 3 == 2:
         fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
-        #new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-        orginal_content[button_id] = dcc.Graph(figure=fig, style={"height": "100%"})
+        new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
+        #orginal_content[button_id] = dcc.Graph(figure=fig, style={"height": "100%"})
     elif n_clicks % 3 == 1:
         # store the orginal children somewhere 
         if original_content is None:
-            original_content.append(current_children)
+            original_content = current_children
         new_contents.append(
             html.Div(f"Hier komt wat anders voor {button_id}.") 
         )
-        orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
+        #orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
     elif n_clicks % 3 == 0:
-        return styles, original_content, original_content
+        return styles, new_contents, original_content
 
-    return styles, original_content, original_content
+    return styles, new_contents, original_content
