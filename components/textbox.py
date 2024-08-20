@@ -10,7 +10,6 @@ import services.config
 def render_textbox(obj, box:str = "AI"):
     style = {
         "max-width": "60%",
-        "width": "50%",
         "padding": "5px 10px",
         "border-radius": 25,
         "margin-bottom": 20,
