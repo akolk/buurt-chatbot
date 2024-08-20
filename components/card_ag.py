@@ -3,15 +3,15 @@ import dash_ag_grid as dag
 from dash import dcc, html 
 import services.config
 
-def makecard_ag(cardtitle, title, df, style):
+def makecard_ag(id, text, obj, style):
     return dbc.Card(
-                [dcc.Store(id={"type": "original-content-store", "index": services.config.buttonidx}),
+                [dcc.Store(id={"type": "original-content-store", "index": id}),
                 html.Div(
-                                    f"Card {services.config.buttonidx} - Click to view data",
-                                    id={"type": "card-content", "index": services.config.buttonidx},
+                                    f"{text}",
+                                    id={"type": "card-content", "index": id},
                                     style={"textAlign": "center"},
                 )],
-                id={"type": "dynamic-card", "index": services.config.buttonidx},
+                id={"type": "dynamic-card", "index": id},
                 style={"width": "80px", "height": "100px", "transition": "all 0.5s"}
                 #dag.AgGrid(
                 #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
