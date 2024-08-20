@@ -106,7 +106,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     button_id = ctx.triggered_id.index
     services.config.logger.info("button id: "+ str(button_id))
     services.config.logger.info("styles #: "+ str(len(styles)))
-    services.config.logger.info("styles : "+ str(style))
+    services.config.logger.info("styles : "+ str(styles))
     services.config.logger.info("orginal_content : " + str(len(original_content)))
 
     new_styles = []
