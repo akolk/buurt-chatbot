@@ -47,8 +47,8 @@ def find_all_by_key(obj, key_to_find):
     services.config.logger.info('find_all_by_key: found ' + str(result))
     return result
 
-
-
 def findchatresponse(data):
-    answer_chatbot = [{'chatbotanswer': item} for item in find_all_by_key(data, 'chatbotanswer')]
-
+    answer_chatbot = find_all_by_key(data, 'chatbotanswer')
+    if answer_chatbot != None:
+        return answer_chatbot.join('. ')
+    return answer_chatbot
