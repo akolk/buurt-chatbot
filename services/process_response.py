@@ -50,5 +50,5 @@ def find_all_by_key(obj, key_to_find):
 def findchatresponse(data):
     answer_chatbot = find_all_by_key(data, 'chatbotanswer')
     if answer_chatbot != None:
-        return answer_chatbot.join('. ')
+        return ". ".join(answer_chatbot) + "."
     return answer_chatbot
