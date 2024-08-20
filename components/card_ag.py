@@ -11,7 +11,7 @@ def makecard_ag(id, text, obj, style):
                                     id={"type": "card-content", "index": id},
                                     style={"textAlign": "left"},
                 )],
-                id={"type": "dynamic-card", "index": id},
+                id={"type": "dynamic-card", "index": id, **{'data-original': button}},
                 style={"width": "max-content", "height": "100%", "transition": "all 0.5s"}
                 #dag.AgGrid(
                 #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
