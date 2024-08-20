@@ -126,7 +126,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     df = pd.DataFrame(data)
 
     #new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-    styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
+    #styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
     
     for i, n in enumerate(button_clicks):
 
