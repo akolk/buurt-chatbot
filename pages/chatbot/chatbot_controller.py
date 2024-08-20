@@ -97,6 +97,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 )
 def resize_card_and_update_content(button_clicks, styles, original_content):
     services.config.logger.info("button clicks: "+ str(len(button_clicks)))
+
     if len(button_clicks) < 1:
         raise PreventUpdate
     n_clicks = ctx.triggered[0]["value"]
@@ -105,6 +106,7 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     button_id = ctx.triggered_id.index
     services.config.logger.info("button id: "+ str(button_id))
     services.config.logger.info("styles #: "+ str(len(styles)))
+    services.config.logger.info("styles : "+ str(style))
     services.config.logger.info("orginal_content : " + str(len(original_content)))
 
     new_styles = []
@@ -118,7 +120,8 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         # Add more datasets as needed
     }
-    new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+    #new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
+    styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
     data = session_data[0]
     df = pd.DataFrame(data)
 
@@ -136,4 +139,4 @@ def resize_card_and_update_content(button_clicks, styles, original_content):
     elif n_clicks % 3 == 0:
         return styles, original_content, original_content
 
-    return new_styles, new_contents, original_content
+    return styles, new_contents, original_content

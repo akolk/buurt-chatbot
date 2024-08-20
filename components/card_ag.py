@@ -12,7 +12,7 @@ def makecard_ag(id, text, obj, style):
                                     style={"textAlign": "left"},
                 )],
                 id={"type": "dynamic-card", "index": id},
-                style={"width": "max-content", "height": "max-content", "transition": "all 0.5s"}
+                style={"width": "max-content", "height": "100%", "transition": "all 0.5s"}
                 #dag.AgGrid(
                 #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
                 #            columnDefs=[{"field": i} for i in df.columns],
