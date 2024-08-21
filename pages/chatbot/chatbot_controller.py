@@ -25,16 +25,22 @@ import json
 
 @app.callback(
     Output('input-box', 'value'),
-    Input('reset-button', 'n_clicks')
+    Output('store-conversation', 'data'),
+    Output('button-store', 'data'),
+    Input('reset-button', 'n_clicks'),
+    State('store-conversation', 'data'),
+    State('button-store', 'data') 
 )
-def reset_input(n_clicks):
+def reset_input(n_clicks, conversations, buttons):
+
+    if not n_clicks:
+        return dash.no_update
+
     services.config.conversation_id = uuid.uuid4();
-    dcc.Store(id="store-conversation", data=[])
-
-    if n_clicks:
-        return ''
-
-    return dash.no_update
+    conversation=[]
+    buttons={}
+    services.config.buttonidx = 0
+    return '', conversation, buttons
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
