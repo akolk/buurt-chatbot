@@ -114,8 +114,8 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     services.config.logger.info("styles : "+ str(current_styles))
     services.config.logger.info("orginal_content : " + str(current_contents))
 
-    triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
-    triggered_index = int(triggered_id.split('-')[-1])
+    #triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    #triggered_index = int(triggered_id.split('-')[-1])
     services.config.logger.info(f"{triggered_id}  {triggered_index}");
     
     session_data = {
