@@ -25,11 +25,11 @@ import json
 
 @app.callback(
     Output('input-box', 'value'),
-    Output('conversation-store', 'data'),
-    Output('button-store', 'data'),
+    Output('store-conversation', 'data'),
+    Output('store-buttons', 'data'),
     Input('reset-button', 'n_clicks'),
-    State('conversation-store', 'data'),
-    State('button-store', 'data') 
+    State('store-conversation', 'data'),
+    State('store-buttons', 'data') 
 )
 def reset_input(n_clicks, conversations, buttons):
 
@@ -37,10 +37,11 @@ def reset_input(n_clicks, conversations, buttons):
         return dash.no_update
 
     services.config.conversation_id = uuid.uuid4();
-    conversation=[]
+    conversations=[]
     buttons={}
     services.config.buttonidx = 0
-    return '', conversation, buttons
+    inputvalue = ""
+    return inputvalue, conversations, buttons
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
