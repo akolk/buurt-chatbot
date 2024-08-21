@@ -25,8 +25,6 @@ import json
 
 @app.callback(
     Output('input-box', 'value'),
-    Output('store-conversation', 'data'),
-    Output('store-buttons', 'data'),
     Input('reset-button', 'n_clicks'),
     State('store-conversation', 'data'),
     State('store-buttons', 'data') 
@@ -41,7 +39,7 @@ def reset_input(n_clicks, conversations, buttons):
     buttons={}
     services.config.buttonidx = 0
     inputvalue = ""
-    return inputvalue, conversations, buttons
+    return inputvalue
 
 @app.callback(
     Output(component_id="display-conversation", component_property="children"), 
