@@ -25,10 +25,10 @@ import json
 
 @app.callback(
     Output('input-box', 'value'),
-    Output('store-conversation', 'data'),
+    Output('conversation-store', 'data'),
     Output('button-store', 'data'),
     Input('reset-button', 'n_clicks'),
-    State('store-conversation', 'data'),
+    State('conversation-store', 'data'),
     State('button-store', 'data') 
 )
 def reset_input(n_clicks, conversations, buttons):
