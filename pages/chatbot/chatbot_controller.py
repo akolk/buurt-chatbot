@@ -116,7 +116,7 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
 
     #triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
     #triggered_index = int(triggered_id.split('-')[-1])
-    services.config.logger.info(f"{triggered_id}  {triggered_index}");
+    #services.config.logger.info(f"{triggered_id}  {triggered_index}");
     
     session_data = {
         0: pd.DataFrame({"x": range(10), "y": [i ** 2   for i in range(10)]}),
