@@ -103,6 +103,9 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     if not ctx.triggered:
         return dash.no_update
 
+    if all(x is None for x in button_clicks):
+        return dash.no_update
+
     services.config.logger.info("button clicks: "+ str(button_clicks))
 
     button_id = ctx.triggered_id.index
