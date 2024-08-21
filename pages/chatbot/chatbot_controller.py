@@ -126,11 +126,13 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     }
 
     if button_id not in button_data:
+        services.config.logger.info(f"{button_id} mot in: " + str(button_data.keys()))
         button_data[button_id] = {
             'clicks': 0,
             'original_content': current_contents[button_id],
             'original_style': current_styles[button_id],
-    }
+        }
+        
     services.config.logger.info("button data : " + str(button_data))
     data = session_data[0]
     df = pd.DataFrame(data)
