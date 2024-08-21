@@ -97,10 +97,10 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 )
 def resize_card_and_update_content(button_clicks, button_data, current_contents, current_styles):
     ctx = dash.callback_context
-    services.config.logger.info("triggered : " + str(ctx.triggered) + " " + " button_data: "+ str(button_data))
+    services.config.logger.info("triggered : " + str(ctx.triggered) + " " + "ctx.triggered_id.index = " + ctx.triggered_id.index + " button_data: "+ str(button_data))
 
-
-    if not ctx.triggered or not button_data:
+    #if not ctx.triggered or not button_data:
+    if not ctx.triggered:
         return dash.no_update
 
     services.config.logger.info("button clicks: "+ str(button_clicks))
