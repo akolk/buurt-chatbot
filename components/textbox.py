@@ -38,7 +38,9 @@ def render_textbox(obj, box:str = "AI"):
     elif box == "AI":
         style["margin-left"] = 0
         style["margin-right"] = "auto"
-
+        style["border"] = "none"
+        style["padding"] = "0"
+        
         thumbnail = html.Img(
             src=app.get_asset_url("chatbot.png"),
             style={
@@ -54,7 +56,7 @@ def render_textbox(obj, box:str = "AI"):
         b = dbc.Button(
                        makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style), 
                        color="link", 
-                       style={"border": "none", "padding": "0"},
+                       style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']}
                       )
 
