@@ -97,7 +97,7 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     #,
     #State("graphql-store", "data")  # Access session data from the store
 )
-def resize_card_and_update_content(button_clicks, button_data, current_contents, current_styles:
+def resize_card_and_update_content(button_clicks, button_data, current_contents, current_styles):
     
     ctx = dash.callback_context
 
