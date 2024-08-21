@@ -86,66 +86,61 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
 
 # Callback to handle card expansion and content update
 @app.callback(
-    Output({"type": "dynamic-card", "index": ALL}, "style"),
-    Output({"type": "card-content", "index": ALL}, "children"),
-    Output({"type": "original-content-store", "index": ALL}, "data"),
-    Input({"type": "dynamic-button", "index": ALL}, "n_clicks"),
-    State({"type": "dynamic-card", "index": ALL}, "style"),
-    State({"type": "original-content-store", "index": ALL}, "data"),
+    Output('store-buttons', 'data'),
+    Output({'type': 'dynamic-button', 'index': dash.dependencies.ALL}, 'children'),
+    Output({'type': 'dynamic-button', 'index': dash.dependencies.ALL}, 'style'),
+    Input({'type': 'dynamic-button', 'index': dash.dependencies.ALL}, 'n_clicks'),
+    State('store-buttons', 'data'),
+    State({'type': 'dynamic-button', 'index': dash.dependencies.ALL}, 'children'),
+    State({'type': 'dynamic-button', 'index': dash.dependencies.ALL}, 'style'),
+    prevent_initial_call=True
     #,
     #State("graphql-store", "data")  # Access session data from the store
 )
-def resize_card_and_update_content(button_clicks, styles, original_content):
-    services.config.logger.info("button clicks: "+ str(button_clicks))
+def resize_card_and_update_content(button_clicks, button_data, current_contents, current_styles:
+    
+    ctx = dash.callback_context
 
-    if len(button_clicks) < 1:
-        raise PreventUpdate
-    n_clicks = ctx.triggered[0]["value"]
-    if not n_clicks:
-        raise PreventUpdate
+    if not ctx.triggered or not button_data:
+        return dash.no_update
+
+    services.config.logger.info("button clicks: "+ str(button_clicks))
 
     button_id = ctx.triggered_id.index
     services.config.logger.info("button id: "+ str(button_id))
-    services.config.logger.info("styles #: "+ str(len(styles)))
-    services.config.logger.info("styles : "+ str(styles))
-    services.config.logger.info("orginal_content : " + str(original_content))
-
-    new_styles = []
-    new_contents = []
-    orginal_content = []
+    services.config.logger.info("styles #: "+ str(len(current_styles)))
+    services.config.logger.info("styles : "+ str(current_styles))
+    services.config.logger.info("orginal_content : " + str(current_contents))
 
     session_data = {
         0: pd.DataFrame({"x": range(10), "y": [i ** 2   for i in range(10)]}),
         1: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         2: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
-        # Add more datasets as needed
     }
-        
+
+    if button_id not in button_data:
+        button_data[button_id] = {
+            'clicks': 0,
+            'original_content': current_contents[button_id],
+            'original_style': current_styles[button_id],
+    }
+    services.config.logger.info("button data : " + str(button_data))
     data = session_data[0]
     df = pd.DataFrame(data)
-
-    #new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-    #styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
     
     for i, n in enumerate(button_clicks):
-
         # Example: Show a graph for even index cards and a table for odd index cards
-        if n != None and n % 3 == 2:
+        if i == button_id and n % 3 == 2:
            fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
-           new_contents.append(dcc.Graph(figure=fig, style={"height": "100%"}))
-           new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-        #orginal_content[button_id] = dcc.Graph(figure=fig, style={"height": "100%"})
-        elif n != None and n % 3 == 1:
+           current_contents[button_id] = [dcc.Graph(figure=fig, style={"height": "100%"})]
+           current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
+        elif i == button_id and n % 3 == 1:
            # store the orginal children somewhere 
+           current_contents[button_id] = [html.Div(f"Hier komt wat anders voor {button_id}.")]
+           current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
+        elif i == button_id and n % 3 == 0:
+           current_contents[button_id] = button_data[button_id]['original_content']
+           current_styles[button_id] = button_data[button_id]['original_style']
 
-           new_contents.append(
-              html.Div(f"Hier komt wat anders voor {button_id}.") 
-           )
-           new_styles.append({"width": "500px", "height": "500px", "transition": "all 0.5s"})
-           #orginal_content[button_id] = html.Div(f"Hier komt wat anders voor {button_id}.") 
-        elif n is None or n % 3 == 0:
-           new_styles.append({"width": "100%", "height": "100%", "transition": "all 0.5s"})
-           new_contents.append(original_content[i])
-
-    return new_styles, new_contents, original_content
+    return button_data, current_contents, current_styles

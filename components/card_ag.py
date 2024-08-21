@@ -5,12 +5,14 @@ import services.config
 
 def makecard_ag(id, text, obj, style):
     return dbc.Card(
-                [dcc.Store(id={"type": "original-content-store", "index": id}),
+
+                [
                 html.Div(
                                     f"{text}",
                                     id={"type": "card-content", "index": id},
                                     style={"textAlign": "left"},
-                )],
+                )
+                ],
                 id={"type": "dynamic-card", "index": id},
                 style={"width": "max-content", "height": "100%", "transition": "all 0.5s"}
                 #dag.AgGrid(

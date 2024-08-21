@@ -26,6 +26,7 @@ def render_chatbot():
             render_navbar(brand_name=services.config.APP_TITLE),
             html.Br(),
             dcc.Store(id="store-conversation", data=[]),
+            dcc.Store(id="store-buttons", data=[]),
             dbc.Container(
                 fluid=True,
                 children=[
