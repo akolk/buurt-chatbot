@@ -129,7 +129,7 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     df = pd.DataFrame(data)
     
     for i, n in enumerate(button_clicks):
-        services.config.logger.info("(i,n) : (" + str(i) + "," + str(n) + ")")
+        services.config.logger.info("(i,n) : (" + str(i) + "," + str(n) + ") button_id = "+str(button_id))
         # Example: Show a graph for even index cards and a table for odd index cards
         if i == button_id and n % 3 == 2:
            fig = px.line(df, x="x", y="y", title=f"Graph for Card {button_id}")
