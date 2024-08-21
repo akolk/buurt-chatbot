@@ -125,9 +125,9 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
         3: pd.DataFrame({"x": range(10), "y": [i ** 1.5 for i in range(10)]}),
     }
 
-    if button_id not in button_data:
+    if str(button_id) not in button_data:
         services.config.logger.info(f"{button_id} mot in: " + str(button_data.keys()))
-        button_data[button_id] = {
+        button_data[str(button_id)] = {
             'clicks': 0,
             'original_content': current_contents[button_id],
             'original_style': current_styles[button_id],
@@ -149,8 +149,8 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
            current_contents[button_id] = [html.Div(f"Hier komt wat anders voor {button_id}.")]
            current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
         elif i == button_id and n % 3 == 0:
-           services.config.logger.info("reset content: "+ str( button_data[button_id]['original_content']))
-           current_contents[button_id] = button_data[button_id]['original_content']
-           current_styles[button_id] = button_data[button_id]['original_style']
+           services.config.logger.info("reset content: "+ str( button_data[str(button_id)]['original_content']))
+           current_contents[button_id] = button_data[str(button_id)]['original_content']
+           current_styles[button_id] = button_data[str(button_id)]['original_style']
 
     return button_data, current_contents, current_styles
