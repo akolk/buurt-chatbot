@@ -9,6 +9,7 @@ import plotly.express as px
 from components.textbox import render_textbox
 from components.card_ag import makecard_ag
 from components.card_text import makecard
+from components.map import mapbrt
 from services.graphql import graphql_endpoint, graphql_to_dataframe
 from services.sparql import sparql_endpoint, sparql_to_dataframe
 from services.endpoint import send_to_endpoint
@@ -151,7 +152,7 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
            current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
         elif i == button_id and n % 3 == 1:
            # store the orginal children somewhere 
-           current_contents[button_id] = [html.Div(f"Hier komt wat anders voor {button_id}.")]
+           current_contents[button_id] = [html.Div([mapbrt([52.5, 5.2])]
            current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
         elif i == button_id and n % 3 == 0:
            services.config.logger.info("reset content: "+ str( button_data[str(button_id)]['original_content']))
