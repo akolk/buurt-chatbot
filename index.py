@@ -38,12 +38,13 @@ def display_page(pathname):
     return page_not_found()
 
 if __name__ == '__main__':
-
     services.config.conversation_id = uuid.uuid4()
     services.config.sparql_endpoint = os.environ.get("SPARQL_ENDPOINT", "https://api.labs.kadaster.nl/datasets/dst/kkg/services/default/sparql")
     services.config.graphql_endpoint = os.environ.get("GRAPHQL_ENDPOINT", "https://labs.kadaster.nl/graphql")
     services.config.url_base_pathname = os.environ.get("BASE_URL", "/")
     services.config.service_endpoint = os.environ.get("QUESTION_ENDPOINT", 'https://labs.kadaster.nl/predict?question=')
+    services.config.buttonid = 0
+    
     # Set up logging
     logging.basicConfig(
         level=logging.INFO,
