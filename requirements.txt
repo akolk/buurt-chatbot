@@ -5,6 +5,8 @@ pandas
 plotly
 requests
 uuid
+dash-leaflet
+dash_extensions
 #openai
 #langchain
 #langchain_community
