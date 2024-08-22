@@ -152,7 +152,7 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
            current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
         elif i == button_id and n % 3 == 1:
            # store the orginal children somewhere 
-           current_contents[button_id] = [html.Div([mapbrt([52.5, 5.2])]
+           current_contents[button_id] = [html.Div([mapbrt([52.5, 5.2])])]
            current_styles[button_id] = {"width": "500px", "height": "500px", "transition": "all 0.5s"}
         elif i == button_id and n % 3 == 0:
            services.config.logger.info("reset content: "+ str( button_data[str(button_id)]['original_content']))
