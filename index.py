@@ -12,8 +12,6 @@ import os
 import uuid
 import logging
 
-
-
 def serve_content():
     """
     :return: html div component
