@@ -1,5 +1,5 @@
 import dash_bootstrap_components as dbc
-from dash import dcc
+from dash import dcc, html
 
 def render_chat_input():
     chat_input = dbc.InputGroup(
