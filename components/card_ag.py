@@ -9,9 +9,9 @@ def makecard_ag(id, text, obj, style):
 
                 [
                 html.Div(
-                                    f"{text}",
-                                    id={"type": "card-content", "index": id},
-                                    style=style,
+                    f"{text}",
+                    id={"type": "card-content", "index": id},
+                    style=style,
                 )
                 ],
                 id={"type": "dynamic-card", "index": id},
