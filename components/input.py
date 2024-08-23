@@ -11,16 +11,6 @@ def render_chat_input():
                   'Sleep en plaats of ',
                    html.A('selecteer bestand(en)')
                 ]),
-                style={
-                   'width': '300px',
-                   'height': '60px',
-                   'lineHeight': '60px',
-                   'borderWidth': '1px',
-                   'borderStyle': 'dashed',
-                   'borderRadius': '5px',
-                   'textAlign': 'center',
-                   'margin': '10px'
-                },
                 multiple=True  # Allow multiple files to be uploaded
             ),
             dbc.Button(id="submit", children=">", color="success"),
