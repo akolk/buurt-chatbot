@@ -115,10 +115,10 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     services.config.logger.info("button clicks: "+ str(button_clicks))
 
     button_id = ctx.triggered_id.index
-    services.config.logger.info("button id: "+ str(button_id))
-    services.config.logger.info("styles #: "+ str(len(current_styles)))
-    services.config.logger.info("styles : "+ str(current_styles))
-    services.config.logger.info("orginal_content : " + str(current_contents))
+    #services.config.logger.info("button id: "+ str(button_id))
+    #services.config.logger.info("styles #: "+ str(len(current_styles)))
+    #services.config.logger.info("styles : "+ str(current_styles))
+    #services.config.logger.info("orginal_content : " + str(current_contents))
 
     #triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
     #triggered_index = int(triggered_id.split('-')[-1])
@@ -132,14 +132,14 @@ def resize_card_and_update_content(button_clicks, button_data, current_contents,
     }
 
     if str(button_id) not in button_data:
-        services.config.logger.info(f"{button_id} mot in: " + str(button_data.keys()))
+        #services.config.logger.info(f"{button_id} mot in: " + str(button_data.keys()))
         button_data[str(button_id)] = {
             'clicks': 0,
             'original_content': current_contents[button_id],
             'original_style': current_styles[button_id],
         }
         
-    services.config.logger.info("button data : " + str(button_data))
+    #services.config.logger.info("button data : " + str(button_data))
     data = session_data[0]
     df = pd.DataFrame(data)
     

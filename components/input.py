@@ -4,12 +4,12 @@ from dash import dcc, html
 def render_chat_input():
     chat_input = dbc.InputGroup(
         children=[
-            dbc.Input(id="user-input", placeholder="Send a message...", type="text"),
+            dbc.Input(id="user-input", placeholder="Stel een vraag ....", type="text"),
             dcc.Upload(
                 id='upload-data',
                 children=html.Div([
-                  'Drag and Drop or ',
-                   html.A('Select Files')
+                  'Sleep en plaats of ',
+                   html.A('selecteer bestand(en)')
                 ]),
                 style={
                    'width': '300px',
