@@ -38,8 +38,6 @@ def render_textbox(obj, box:str = "AI"):
     elif box == "AI":
         style["margin-left"] = 0
         style["margin-right"] = "auto"
-        style["border"] = "none"
-        style["padding"] = "0"
         
         thumbnail = html.Img(
             src=app.get_asset_url("chatbot.png"),
