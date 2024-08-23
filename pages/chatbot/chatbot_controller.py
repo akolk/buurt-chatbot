@@ -25,6 +25,19 @@ import pandas as pd
 import json
 
 @app.callback(
+    Output('output-data-upload', 'children'),
+    Input('upload-data', 'contents'),
+    State('upload-data', 'filename')
+)
+def update_output(list_of_contents, list_of_names):
+    services.config.logger.info("filenames: "+ list_of_names)
+    if list_of_contents is not None:
+        children = [
+            parse_contents(c, n) for c, n in zip(list_of_contents, list_of_names)
+        ]
+        return children
+
+@app.callback(
     Output('input-box', 'value'),
     Input('reset-button', 'n_clicks'),
     State('store-conversation', 'data'),
