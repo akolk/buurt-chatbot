@@ -4,13 +4,14 @@ from dash import dcc, html
 import services.config
 
 def makecard_ag(id, text, obj, style):
+    style['textAlign'] = "left"
     return dbc.Card(
 
                 [
                 html.Div(
                                     f"{text}",
                                     id={"type": "card-content", "index": id},
-                                    style={"textAlign": "left"},
+                                    style=style,
                 )
                 ],
                 id={"type": "dynamic-card", "index": id},
