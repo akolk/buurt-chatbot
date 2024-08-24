@@ -54,7 +54,7 @@ def render_textbox(obj, box:str = "AI"):
         b = dbc.Button(
                        makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style), 
                        color="primary", 
-                       style=style,
+                       #style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']}
                       )
 
