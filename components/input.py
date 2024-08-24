@@ -7,10 +7,9 @@ def render_chat_input():
         dbc.Input(id="user-input", placeholder="Stel een vraag ....", type="text"),
         html.Div(
             dcc.Upload(
-                id='upload-data',
+                id="upload-data",
                 children=html.Div([
-                    'Sleep, plaats of ',
-                    html.A('selecteer bestand(en)')
+                    html.A('File')
                 ]),
                 #multiple=True,  # Allow multiple files to be uploaded
                 style={
