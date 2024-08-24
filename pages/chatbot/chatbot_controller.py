@@ -1,6 +1,6 @@
 import dash
 
-from dash import ctx, html, dcc
+from dash import ctx, html, dcc, callback
 from dash.dependencies import Input, Output, State, ALL
 from app import app
 from dash.exceptions import PreventUpdate
@@ -24,7 +24,7 @@ import re
 import pandas as pd
 import json
 
-@app.callback(
+@callback(
     Output('output-data-upload', 'children'),
     Input('upload-data', 'contents'),
     State('upload-data', 'filename'),
