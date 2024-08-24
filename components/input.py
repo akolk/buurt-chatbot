@@ -12,7 +12,7 @@ def render_chat_input():
                     'Sleep, plaats of ',
                     html.A('selecteer bestand(en)')
                 ]),
-                multiple=True,  # Allow multiple files to be uploaded
+                #multiple=True,  # Allow multiple files to be uploaded
                 style={
                     'width': '100%',
                     'height': '100%',
