@@ -1,13 +1,5 @@
-from typing import List, Any, Dict, Optional
-from rx.subject import Subject
-from graphql import GraphQLSchema, parse
-from some_graphql_client import ApolloClient  # Replace with your GraphQL client
-from your_util_module import find_all_by_key, find_key
-from your_model_module import BotMessage, CustomInformation
-from your_services_module import ChartService, DashboardService
-
-class ApolloService:
-    def __init__(self, apollo: ApolloClient, dashboard: DashboardService, chart: ChartService):
+class ProcessGraphQL:
+    def __init__(self, data):
         self.apollo = apollo
         self.dashboard = dashboard
         self.chart = chart
