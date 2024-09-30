@@ -1,5 +1,7 @@
 from langchain.agents import AgentType, initialize_agent, load_tools
-from langchain_openai import OpenAI
+# Import Azure OpenAI
+from langchain_openai import AzureOpenAI
+import services.config
 
 
 # The API version you want to use: set this to `2023-12-01-preview` for the released version.
@@ -12,7 +14,7 @@ llm = AzureOpenAI(temperature=0)
 
 tools = load_tools(
     ["graphql"],
-    graphql_endpoint=os.getenv("GRAPHQL_ENDPOINT"),
+    graphql_endpoint=services.config.graphql_endpoint,
 )
 
 agent = initialize_agent(
