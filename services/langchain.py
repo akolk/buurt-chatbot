@@ -1,15 +1,21 @@
-from langchain_openai import ChatOpenAI
-from langchain import hub
-from langchain.agents import create_openai_functions_agent
-from langchain.agents import AgentExecutor
+from langchain.agents import AgentType, initialize_agent, load_tools
+from langchain_openai import OpenAI
 
-# List of tools to use
-tools = [retriever_tool, search]
 
-# Retrieve template from LangChain Hub
-template = hub.pull("hwchase17/openai-functions-agent")
+# The API version you want to use: set this to `2023-12-01-preview` for the released version.
+#export OPENAI_API_VERSION=2023-12-01-preview
+# The base URL for your Azure OpenAI resource.  You can find this in the Azure portal under your Azure OpenAI resource.
+#export AZURE_OPENAI_ENDPOINT=https://your-resource-name.openai.azure.com
+# The API key for your Azure OpenAI resource.  You can find this in the Azure portal under your Azure OpenAI resource.
+#export AZURE_OPENAI_API_KEY=<your Azure OpenAI API key>
+llm = AzureOpenAI(temperature=0)
 
-# Create the agent
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
-agent = create_openai_functions_agent(llm, tools, template)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+tools = load_tools(
+    ["graphql"],
+    graphql_endpoint=os.getenv("GRAPHQL_ENDPOINT"),
+)
+
+agent = initialize_agent(
+    tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True
+)
+agent.run()
