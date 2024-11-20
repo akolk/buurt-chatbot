@@ -30,8 +30,9 @@ def render_textbox(obj, box:str = "AI"):
                 "float": "right",
             },
         )
-        textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True
+        #textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True
         #,                 className="shadow-lg p-3 mb-5 bg-black rounded"
+        textbox_human = dbc.Card(obj['question'], style=style, body=True, inverse=True
         )
         return html.Div([thumbnail_human, textbox_human])
 
@@ -53,7 +54,7 @@ def render_textbox(obj, box:str = "AI"):
         #)           
         b = dbc.Button(
                        makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style), 
-                       color="primary", 
+                       #color="primary", 
                        #style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']}
                       )
