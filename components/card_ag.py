@@ -25,6 +25,7 @@ def makecard_ag(id, text, obj, style):
                 #        ),
                 #        style=style, body=True, color="light", inverse=False,
                 #        className="shadow-lg p-3 mb-5 bg-white rounded"
+        ,className="sticky-note-card"
     )
 
     #return dbc.Card(
