@@ -1,8 +1,11 @@
-from langchain_community.llms.OpenAI import OpenAI
 from langchain.chains.ConversationChain import ConversationChain
 from langchain.memory import ConversationBufferMemory
 
-chat = OpenAI(temperature=0)
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import AzureChatOpenAI
+
+llm = AzureChatOpenAI(model="gpt-35-turbo", api_version="2023-05-15")
+
 
 conversation = ConversationChain(
     llm=chat, 
