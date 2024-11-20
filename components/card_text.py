@@ -12,6 +12,6 @@ def makecard(cardtitle,title,body, style):
             ]
         ),
        ],
-       className="shadow-lg p-3 mb-5 bg-white rounded",
+       className="sticky-note-card",
        style=style
     )
