@@ -43,7 +43,7 @@ def render_chatbot():
                                             dbc.Spinner(html.Div(id="loading-component")),
                                         ])
                                     ],
-                                    style={'border-radius': 25, 'background': '#FFFFFF', 'border': '0px solid'}
+                                    style={'border-radius': 25, 'border': '0px solid'}
                                 )
                             ),
                             dbc.Col(width=1),
