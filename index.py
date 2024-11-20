@@ -34,6 +34,48 @@ def display_page(pathname):
     if pathname in services.config.url_base_pathname or pathname in services.config.url_base_pathname + 'chatbot':
         return render_chatbot()
     return page_not_found()
+# Custom CSS for sticky note style
+app.index_string = '''
+<!DOCTYPE html>
+<html>
+    <head>
+        {%metas%}
+        <title>Chatbot Sticky Notes</title>
+        {%favicon%}
+        {%css%}
+        <style>
+            /* Sticky note style */
+            .sticky-note-card {
+                background-color: #FFEB3B;
+                width: 250px;
+                padding: 10px;
+                margin-bottom: 10px;
+                box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+                border: 1px solid #d9d9d9;
+                font-family: 'Courier New', Courier, monospace;
+                transform: rotate(-2deg);
+            }
+            .card-text {
+                font-size: 1em;
+                color: #333333;
+            }
+            .chat-output {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+    </body>
+</html>
+'''
 
 if __name__ == '__main__':
     services.config.conversation_id = uuid.uuid4()
