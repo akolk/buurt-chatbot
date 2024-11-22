@@ -56,7 +56,9 @@ def render_textbox(obj, box:str = "AI"):
                        makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style), 
                        #color="primary", 
                        #style=style,
-                       id={"type": "dynamic-button", "index": obj['buttonidx']}
+                       id={"type": "dynamic-button", "index": obj['buttonidx']},
+                       className="",
+                       style=""
                       )
 
         return html.Div([thumbnail, b])
