@@ -3,8 +3,6 @@ from dash import Dash
 import os
 import services.config
 
-
-
 app = Dash(__name__,
             title=services.config.APP_TITLE,
             update_title='Laden ....',
