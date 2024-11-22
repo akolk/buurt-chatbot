@@ -12,6 +12,7 @@ def makecard(cardtitle,title,body, style):
             ]
         ),
        ],
-       className="sticky-note-card",
-       style=style
+       className="sticky-note-card"
+       # ,
+       # style=style
     )
