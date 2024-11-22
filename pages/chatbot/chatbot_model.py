@@ -8,7 +8,7 @@ llm = AzureChatOpenAI(model="gpt-35-turbo", api_version="2023-05-15")
 
 
 conversation = ConversationChain(
-    llm=chat, 
+    llm=llm, 
     verbose=True,
     memory=ConversationBufferMemory()
 )
