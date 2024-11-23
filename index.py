@@ -55,6 +55,17 @@ app.index_string = '''
                 font-family: 'Courier New', Courier, monospace;
                 transform: rotate(-2deg);
             }
+                        /* Sticky note style */
+            .sticky-note-card-ai {
+                background-color: #FFEB3B;
+                width: 250px;
+                padding: 10px;
+                margin-bottom: 10px;
+                box-shadow: 5px 5px 10px rgba(0,0,0,0.2);
+                border: 1px solid #d9d9d9;
+                font-family: 'Courier New', Courier, monospace;
+                transform: rotate(2deg);
+            }
             .card-text {
                 font-size: 1em;
                 color: #333333;
