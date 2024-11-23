@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import dcc, html 
 
-def makecard(cardtitle,title,body, style):
+def makecard(cardtitle,title,body, style, className):
     return dbc.Card(
        [
         dbc.CardHeader(cardtitle),
@@ -12,8 +12,8 @@ def makecard(cardtitle,title,body, style):
             ]
         ),
        ],
-       className="sticky-note-card"
+       className=className,
         
        # ,
-       # style=style
+       style=style
     )
