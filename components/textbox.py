@@ -32,7 +32,7 @@ def render_textbox(obj, box:str = "AI"):
         )
         #textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True
         #,                 className="shadow-lg p-3 mb-5 bg-black rounded"
-        textbox_human = dbc.Card(obj['question'], style=style, body=True, inverse=True, className=""sticky-note-card")
+        textbox_human = dbc.Card(obj['question'], style=style, body=True, inverse=True, className="sticky-note-card")
         return html.Div([thumbnail_human, textbox_human])
 
     elif box == "AI":
