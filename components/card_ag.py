@@ -3,7 +3,7 @@ import dash_ag_grid as dag
 from dash import dcc, html 
 import services.config
 
-def makecard_ag(id, text, obj, style):
+def makecard_ag(id, text, obj, style, className):
     style['textAlign'] = "left"
     return dbc.Card(
 
@@ -15,7 +15,7 @@ def makecard_ag(id, text, obj, style):
                 )
                 ],
                 id={"type": "dynamic-card", "index": id},
-                style=style
+                style=style,
                 #style={"width": "max-content", "height": "100%", "transition": "all 0.5s"}
                 #dag.AgGrid(
                 #       services.config.buttonidx     rowData=df.to_dict(orient="records"),
@@ -25,7 +25,7 @@ def makecard_ag(id, text, obj, style):
                 #        ),
                 #        style=style, body=True, color="light", inverse=False,
                 #        className="shadow-lg p-3 mb-5 bg-white rounded"
-        ,className="sticky-note-card"
+                className=className
     )
 
     #return dbc.Card(
