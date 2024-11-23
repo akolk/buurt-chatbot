@@ -58,7 +58,7 @@ def render_textbox(obj, box:str = "AI"):
                        #style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']},
                        className="",
-                       style=""
+                       style=style
                       )
 
         return html.Div([thumbnail, b])
