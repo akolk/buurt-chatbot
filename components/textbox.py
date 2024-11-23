@@ -32,8 +32,7 @@ def render_textbox(obj, box:str = "AI"):
         )
         #textbox_human = dbc.Card(obj['question'], style=style, body=True, color="primary", inverse=True
         #,                 className="shadow-lg p-3 mb-5 bg-black rounded"
-        textbox_human = dbc.Card(obj['question'], style=style, body=True, inverse=True
-        )
+        textbox_human = dbc.Card(obj['question'], style=style, body=True, inverse=True, className=""sticky-note-card")
         return html.Div([thumbnail_human, textbox_human])
 
     elif box == "AI":
@@ -53,7 +52,7 @@ def render_textbox(obj, box:str = "AI"):
         #,                 className="shadow-lg p-3 mb-5 bg-white rounded"
         #)           
         b = dbc.Button(
-                       makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style), 
+                       makecard_ag(obj['buttonidx'], obj['chatbotresponse'], obj, style, "sticky-note-card-ai"), 
                        #color="primary", 
                        #style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']},
