@@ -63,7 +63,7 @@ def render_textbox(obj, box:str = "AI"):
                        #color="primary", 
                        #style=style,
                        id={"type": "dynamic-button", "index": obj['buttonidx']},
-                       className="",
+                       className="btn btn-white",
                        style=style
                       )
 
