@@ -31,7 +31,7 @@ def render_textbox(obj, box:str = "AI"):
             },
         )
 
-        textbox_human = makecard("Vraag", obj['question'], style, "sticky-note-card")
+        textbox_human = makecard("Vraag", "Vraag", obj['question'], style, "sticky-note-card")
                        #color="primary", 
                        #style=style,
                        #id={"type": "dynamic-button", "index": obj['buttonidx']},
