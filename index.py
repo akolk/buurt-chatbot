@@ -106,4 +106,4 @@ if __name__ == '__main__':
     HOST = os.environ.get('HOST', '0.0.0.0')
     PORT = int(os.environ.get('PORT', 8050))
 
-    app.run_server(debug=True, host=HOST, port=PORT)
+    app.run(debug=True, host=HOST, port=PORT)
